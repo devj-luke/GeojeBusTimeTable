@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header{
+    background-color: #000000;
+}
+main{
+    flex: 1;
+    padding-bottom: 100px;
+}
+footer{
+    background-color: #000000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.item{
+    border: 1px solid black;
+    margin: 10px;
+}
+.title{
+    flex-basis: 100px;
+    background-color: #3F4045;
+    color: white;
+    flex-shrink: 0;
+
+    border: 1px solid #CCCCCC;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.value{
+    flex-basis: 100%;
+    border-left: 1px solid black;
+}
+
+.content-border-bottom{
+    border-bottom: 1px solid black;
+}
+
+
+.item:first-child .value{
+    background-color: #AEEEEE;
+}
+
+/* 토글 버튼 및 래퍼 div 스타일링 */
+.toggle-wrapper {
+    display: flex;
+    /*background-color:;*/
+    padding: 3px;
+}
+
+.toggle-btn {
+    flex: 1;
+    background-color: #333333;
+    /*color: gray;*/
+    color: white;
+    cursor: pointer;
+    border: 2px solid white;
+}
+
+/* 활성화된 버튼 스타일 */
+.toggle-btn.active {
+    background-color: gold;
+    color: black;
+}
