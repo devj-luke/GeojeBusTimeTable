@@ -97,7 +97,7 @@ function changeFocusBusTime(){
     const    busTime            = $('.item__number:nth-child(1) > div:nth-child(2)')
             ,currentTime        = getCurrentTime()
             ,currentTimeInt     = parseInt(currentTime)
-            ,currentTimeString  = convertToTimeString(currentTimeInt);
+            ,currentTimeString  = convertToTimeString(currentTime);
 
     //탈수있는 버스 존재 확인용 변수
     let     isBusTime   = false;
@@ -186,15 +186,15 @@ function createBusInfoColorText(text){
     return tempText;
 }
 
-
+/**
+ *
+ * @param input         문자열 시간값 들어옴 , ex : 1301 (1시1분)
+ * @returns {string}    생성한 문자열 , ex : AM,PM 01:01
+ */
 function convertToTimeString(input) {
-    // 입력된 숫자가 4자리가 아니거나 숫자가 아닌 경우 에러 처리
-    if (typeof input !== "number" || input.toString().length !== 4) {
-        throw new Error("유효하지 않은 입력입니다. 숫자 4자리를 입력해주세요.");
-    }
 
-    // 숫자를 문자열로 변환하여 앞의 두 자리와 뒤의 두 자리로 분리
-    const timeStr = input.toString();
+    // 입력 문자열을 앞의 두 자리와 뒤의 두 자리로 분리
+    const timeStr = input;
     const hour = timeStr.slice(0, 2);
     const minute = timeStr.slice(2);
 
