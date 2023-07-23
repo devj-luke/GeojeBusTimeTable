@@ -46,8 +46,8 @@ footer{
     border-bottom: 1px solid black;
 }
 
-
-.item:first-child .value{
+/* 버스 탑승 가능 시 색상*/
+.item-focus{
     background-color: #AEEEEE;
 }
 

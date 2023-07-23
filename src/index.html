@@ -18,7 +18,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
-    <header class="sticky-top pl-2 pr-2">
+    <header class="sticky-top pl-2 pr-2 mb-2">
         <div class="text-white d-flex justify-content-center align-items-center p-1">
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
@@ -38,30 +38,11 @@
         </div>
 
     </header>
-
+    <!-- alert -->
+    <div class="alert alert-danger mb-2 d-none msg-alert" role="alert">
+        <strong>아쉽네요..</strong> 탑승 가능한 버스가 없습니다. 첫차를 이용해주세요
+    </div>
     <main class="content">
-        <div class="d-flex flex-column item">
-            <div class="item__number    d-flex">
-                <div class="title content-border-bottom">도착시간</div>
-                <div class="value content-border-bottom pl-2">9:25</div>
-            </div>
-            <div class="item__number    d-flex">
-                <div class="title content-border-bottom">번호</div>
-                <div class="value content-border-bottom pl-2">65</div>
-            </div>
-            <div class="item__number    d-flex">
-                <div class="title content-border-bottom">종점</div>
-                <div class="value content-border-bottom pl-2">홍포</div>
-            </div>
-            <div class="item__info      d-flex">
-                <div class="title content-border-bottom">경로</div>
-                <div class="value content-border-bottom pl-2">고현 → 장평 → 사곡 → 거제 → 동부 → 부춘 → 학동 → 수산 → 양화 → 망치 → 구조라 → 지세포 → 능포</div>
-            </div>
-            <div class="item__etc       d-flex">
-                <div class="title">비고</div>
-                <div class="value pl-2">장평,사곡 미경유</div>
-            </div>
-        </div>
     </main>
 
     <footer class="text-white p-2">
