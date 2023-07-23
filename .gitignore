@@ -56,7 +56,7 @@ cmake-build-*/
 
 # IntelliJ
 out/
-
+BusTimetableProject.iml
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
