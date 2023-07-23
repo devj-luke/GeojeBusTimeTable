@@ -1,4 +1,4 @@
-import {busInKeys,bus_data} from '../data/50-in-data.js'
+import {bus_data, busInKeys} from '../data/50-in-data.js'
 
 $(document).ready(function () {
     init();
@@ -94,10 +94,16 @@ function getCurrentTime(separator) {
     return  `${hour}${separator ?? ''}${min}`;
 }
 function changeFocusBusTime(){
-    const    busTime     = $('.item__number:nth-child(1) > div:nth-child(2)')
-            ,currentTime = parseInt(getCurrentTime());
+    const    busTime            = $('.item__number:nth-child(1) > div:nth-child(2)')
+            ,currentTime        = getCurrentTime()
+            ,currentTimeInt     = parseInt(currentTime)
+            ,currentTimeString  = convertToTimeString(currentTimeInt);
+
     //탈수있는 버스 존재 확인용 변수
     let     isBusTime   = false;
+
+    //기준 시간 출력
+    $('.button-label').text(`현재 시간표는 ${currentTimeString} 기준입니다.`);
 
     //현재 출력된 모든 시간표의 시간을 가지고 반복문을 실행함
     busTime.each(function (index,element) {
@@ -109,7 +115,7 @@ function changeFocusBusTime(){
         * 현재 값 보다 시간표의 값이 작으면 해당되지 않을 것이고 크다면 현재 탈 수 있는 시간인 점을 생각했다.
         * 해당 if문을 비교하여 시간표의 값이 크면 루프는 종료되고 해당 시간표로 포커싱 된다.
         */
-        if(currentTime <= time){
+        if(currentTimeInt <= time){
             const    item   = $(element).parent().parent()
                     ,pos    = $(item).offset().top - $('header').height() - 10;         //.item 시작 위치
                                                                                         // div 위치 - 상단 header - 뛰우고싶은값
@@ -178,4 +184,35 @@ function createBusInfoColorText(text){
     });
 
     return tempText;
+}
+
+
+function convertToTimeString(input) {
+    // 입력된 숫자가 4자리가 아니거나 숫자가 아닌 경우 에러 처리
+    if (typeof input !== "number" || input.toString().length !== 4) {
+        throw new Error("유효하지 않은 입력입니다. 숫자 4자리를 입력해주세요.");
+    }
+
+    // 숫자를 문자열로 변환하여 앞의 두 자리와 뒤의 두 자리로 분리
+    const timeStr = input.toString();
+    const hour = timeStr.slice(0, 2);
+    const minute = timeStr.slice(2);
+
+    // 시간과 분을 정수로 변환
+    const hourInt = parseInt(hour, 10);
+    const minuteInt = parseInt(minute, 10);
+
+    // 올바른 범위의 시간과 분인지 확인
+    if (hourInt < 0 || hourInt > 23 || minuteInt < 0 || minuteInt > 59) {
+        throw new Error("유효하지 않은 입력입니다. 올바른 시간 형식을 입력해주세요.");
+    }
+
+    // 시간이 12 이상이면 PM, 아니면 AM으로 설정
+    const meridiem = hourInt >= 12 ? "PM" : "AM";
+
+    // 12시간 형식으로 변환
+    const convertedHour = hourInt % 12 === 0 ? 12 : hourInt % 12;
+
+    // 최종 문자열 생성
+    return `${meridiem} ${convertedHour.toString().padStart(2, "0")}:${minute.padStart(2, "0")}`;
 }
