@@ -18,6 +18,13 @@ function init(){
         initList(value);
         changeFocusBusTime();
     });
+    //Refresh 버튼 이벤트 등록
+    $('#refreshBtn').on("click",function () {
+        const   idx         = $('#select-start').val(),
+                value       = busInKeys[idx];//선택된 값 , ex) 고현
+        initList(value);
+        changeFocusBusTime();
+    })
 
     //목록 생성
     //초기값은 항상 키의 첫번째 항목이다.
@@ -25,6 +32,9 @@ function init(){
 
     //시간 포커싱 하기
     changeFocusBusTime();
+
+    //모바일 active 이슈 해결을 위해 추가
+    $(document).on("touchstart", function(){ });
 }
 
 function initList(select_key){
@@ -82,6 +92,7 @@ function getCurrentTime(separator) {
 function changeFocusBusTime(){
     const    busTime     = $('.item__number:nth-child(1) > div:nth-child(2)')
             ,currentTime = parseInt(getCurrentTime());
+    //탈수있는 버스 존재 확인용 변수
     let     isBusTime   = false;
 
     //현재 출력된 모든 시간표의 시간을 가지고 반복문을 실행함
@@ -126,6 +137,19 @@ function changeFocusBusTime(){
         $('html, body').animate({
             scrollTop: 0
         }, 500);
+    }
+    /**
+     * 중복 클릭 방지 로직
+     * Focus 이동할 필요가 있을때만 조회버튼 비활성화 시킨다.
+     */
+    if(isBusTime){
+        $('.btn').addClass('disabled')
+        setTimeout(function () {
+            $('.btn').removeClass('disabled');
+        },1000)
+    }
+    else{
+        $('.btn').addClass('disabled')
     }
     return true;
 }

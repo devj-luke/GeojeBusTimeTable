@@ -36,7 +36,9 @@
             <button type="button" class="toggle-btn active" onclick="toggleButtonText(true)">동부 →  고현</button>
             <button type="button" class="toggle-btn" onclick="toggleButtonText(false)">고현 →  동부</button>
         </div>
-
+        <div class="d-flex justify-content-center align-items-center text-white">
+            <span class="button-label">현재 시간표는 AM 09:40 기준입니다.</span>
+        </div>
     </header>
     <!-- alert -->
     <div class="alert alert-danger mb-2 d-none msg-alert" role="alert">
@@ -45,11 +47,10 @@
     <main class="content">
     </main>
 
-    <footer class="text-white p-2">
-        <div class="d-flex p-1 justify-content-center align-items-center">
-            <div class="text-white  div-get-time">현재 시간표는 AM 09:40 기준입니다.</div>
-            <button id="refreshBtn" class="bg-transparent text-white border-0">
-                <i class="fa fa-refresh" aria-hidden="true"></i>
+    <footer class="text-white">
+        <div class="d-flex justify-content-center flex-column">
+            <button id="refreshBtn" class="btn button-refresh">
+                <i class="fa fa-refresh" aria-hidden="true"></i> <span>탑승가능버스 조회</span>
             </button>
         </div>
     </footer>
