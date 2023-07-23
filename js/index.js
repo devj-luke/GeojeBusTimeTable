@@ -15,6 +15,7 @@ function init(){
     $('#select-start').change(function (){
         const   idx         = $('#select-start').val(),
                 value       = busInKeys[idx];//선택된 값 , ex) 고현
+        $('.alert').addClass('d-none');
         initList(value);
         changeFocusBusTime();
     });
