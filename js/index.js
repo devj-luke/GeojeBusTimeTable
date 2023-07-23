@@ -106,7 +106,7 @@ function changeFocusBusTime(){
         * 현재 값 보다 시간표의 값이 작으면 해당되지 않을 것이고 크다면 현재 탈 수 있는 시간인 점을 생각했다.
         * 해당 if문을 비교하여 시간표의 값이 크면 루프는 종료되고 해당 시간표로 포커싱 된다.
         */
-        if(currentTime < time){
+        if(currentTime <= time){
             const    item   = $(element).parent().parent()
                     ,pos    = $(item).offset().top - $('header').height() - 10;         //.item 시작 위치
                                                                                         // div 위치 - 상단 header - 뛰우고싶은값
