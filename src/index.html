@@ -12,25 +12,10 @@
 
     <!-- import js   -->
     <script type="module" src="../js/index.js"></script>
+    <script src="../js/component.js"></script>
     <!-- import css   -->
     <link href="../css/index.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <script>
-        // 버튼 상태를 토글하는 함수
-        function toggleButtonText(isState1) {
-            var btnGroup = document.querySelector('.toggle-wrapper');
-            var buttons = btnGroup.querySelectorAll('.toggle-btn');
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
-            });
-
-            if (isState1) {
-                buttons[0].classList.add('active');
-            } else {
-                buttons[1].classList.add('active');
-            }
-        }
-    </script>
 </head>
 <body>
     <header class="sticky-top pl-2 pr-2">
