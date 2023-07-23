@@ -52,8 +52,11 @@ function initList(select_key){
                 ,busTime    = keyExists ? bus_data[index][select_key] : "X"
                 ,busInfo    = bus_data[index]["비고"].replace(/\n/g, "<br>")
                 ,keys       = Object.keys(bus_data[index])//bus_data[index] 요소의 키를 뽑아냄
-                ,busRoute    = keys.slice(1,keys.length-1).join(" → ")
+                ,busRoute    = keys.slice(1,keys.length-1).join("<span class='brown-text'><b> → </b></span>")
                 ,fianlRoute  = keys[keys.length-2];
+
+        // let busInfo = bus_data[index]["비고"].replace(/\n/g, "<br>");
+        let busInfoColorText = createBusInfoColorText(busInfo);
 
         if(busTime !=="X") {
             $('.content').append(`    <div class="d-flex flex-column item">
@@ -75,7 +78,7 @@ function initList(select_key){
                                             </div>
                                             <div class="item__etc       d-flex">
                                                 <div class="title">비고</div>
-                                                <div class="value pl-2">${busInfo}</div>
+                                                <div class="value pl-2">${busInfoColorText}</div>
                                             </div>
                                         </div>`
             );
@@ -153,4 +156,26 @@ function changeFocusBusTime(){
         $('.btn').addClass('disabled')
     }
     return true;
+}
+
+/**
+ * 미경유,경유에 대해 색상 하이라이트를 위한 텍스트를 만들어주는 함수
+ * @param text          하이라이트할 문자열
+ * @returns {string}    하이라이트 처리된 문자열
+ */
+function createBusInfoColorText(text){
+    let  busInfoArray   = text.split('<br>')
+        ,tempText       = '';
+
+    $.each(busInfoArray, function(index, item) {
+        let textColor = '';
+        if (item.includes('미경유')) {
+            textColor = 'red-text';
+        } else if (item.includes('경유')) {
+            textColor = 'blue-text';
+        }
+        tempText += `<span class="${textColor}">${item}</span><br>`;
+    });
+
+    return tempText;
 }
