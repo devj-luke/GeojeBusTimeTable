@@ -50,8 +50,8 @@
         const inputText = document.getElementById('inputValue').value;
         // 줄바꿈으로 입력된 값을 분리하여 배열로 변환
         const lines = inputText.split('\n');
-        // 각 줄의 앞뒤 공백 제거
-        valueArray = lines.map(line => line.trim());
+        //값 생성
+        valueArray = lines.map(line => line);
 
         console.log("value : " + valueArray);
     }
@@ -86,48 +86,50 @@
 <script>
     $(document).ready(function (){
         $('#inputKey').val('번호\t홍포\t저구\t쌍근\t탑포\t율포\t가배\t부춘\t해금강\t학동\t연담\t동부\t거제\t사곡\t장평\t고현\t비고\n')
-        $('#inputValue').val(
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t6:55\t7:00\t7:17\t7:25\t7:33\t오수마을 경유\n' +
-            '52\tx\tx\t6:35\t6:38\t6:42\t6:47\tx\tx\tx\tx\t7:05\t7:10\t7:27\t7:35\t7:43\t장평오거리 미경유|(등교시)중앙고 운행\n' +
-            '51\tx\tx\tx\tx\tx\tx\t7:30\tx\tx\tx\t7:37\t7:42\t7:59\t8:07\t8:15\t해양사 발 오수마을 경유 |경남아너스빌@(08:05) 경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t7:40\tx\t7:55\t8:00\t8:17\t8:25\t8:33\t장평오거리 미경유|평지-부춘 도로 운행\n' +
-            '55\tx\tx\tx\tx\tx\tx\tx\t7:35\t7:47\t7:57\t8:05\t8:10\tx\tx\t8:30\t사곡, 장평시내 미경유\n' +
-            '52\tx\tx\t7:40\t7:43\t7:47\t7:52\tx\tx\tx\tx\t8:10\t8:15\t8:32\t8:40\t8:48\t장평오거리 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t8:20\t8:25\t8:42\t8:50\t8:58\t장평오거리 미경유|주말 및 공휴일 운행중지\n' +
-            '51\tx\tx\tx\tx\tx\tx\t8:20\tx\tx\tx\t8:27\t8:32\t8:49\t8:57\t9:05\t해양사 발 오수마을 경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t9:25\t9:30\t9:47\t9:55\t10:03\t오수마을 경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t9:30\tx\t9:45\t9:50\t10:07\tx\t10:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t10:25\t10:30\t10:47\t10:55\t11:03\t장평오거리 미경유\n' +
-            '52\tx\tx\t10:15\t10:18\t10:22\t10:27\tx\tx\tx\tx\t10:45\t10:50\t11:07\tx\t11:20\t장평시내 미경유\n' +
-            '55-1\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t11:05\t11:10\tx\tx\t11:30\t장평,사곡 미경유|다포,다대 경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t11:25\t11:30\t11:47\t11:55\t12:03\t오수마을 경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t11:30\tx\t11:45\t11:50\t12:07\tx\t12:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t12:25\t12:30\t12:47\t12:55\t13:03\t오수마을 경유\n' +
-            '52\tx\tx\t12:15\t12:18\t12:22\t12:27\tx\tx\tx\tx\t12:45\t12:50\t13:07\tx\t13:20\t사곡, 장평시내 미경유\n' +
-            '55\tx\tx\tx\tx\tx\tx\tx\t12:48\t13:00\t13:10\t13:15\t13:20\tx\tx\t13:40\t사곡, 장평 미경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t13:30\tx\t13:45\t13:50\t14:07\tx\t14:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t14:25\t14:30\t14:47\t14:55\t15:03\t오수마을 경유\n' +
-            '52\tx\tx\t14:15\t14:18\t14:22\t14:27\tx\tx\tx\tx\t14:45\t14:50\t15:07\tx\t15:20\t장평시내 미경유\n' +
-            '55\tx\tx\tx\tx\tx\tx\tx\t14:48\t15:00\t15:10\t15:15\t15:20\tx\tx\t15:40\t사곡, 장평시내 미경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t15:30\tx\t15:45\t15:50\t16:07\tx\t16:20\t장평미경유|평지-부춘 도로 운행\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t16:25\t16:30\t16:47\t16:55\t17:03\t오수마을 경유\n' +
-            '52\tx\tx\t16:15\t16:18\t16:22\t16:27\tx\tx\tx\tx\t16:45\t16:50\t17:07\tx\t17:20\t장평시내 미경유\n' +
-            '55\tx\tx\tx\tx\tx\tx\tx\t16:38\t16:50\t17:00\t17:05\t17:10\tx\tx\t17:30\t사곡, 장평시내 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t17:25\t17:30\t17:47\t17:55\t18:03\t오수마을 경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t17:30\tx\t17:45\t17:50\t18:07\tx\t18:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t18:25\t18:30\t18:47\t18:55\t19:03\t\n' +
-            '52\tx\tx\t18:15\t18:18\t18:22\t18:27\tx\tx\tx\tx\t18:45\t18:50\t19:07\tx\t19:20\t장평시내 미경유\n' +
-            '55\tx\tx\tx\tx\tx\tx\tx\t18:48\t19:00\t19:10\t19:15\t19:20\tx\tx\t19:40\t사곡, 장평시내 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t19:30\t19:35\t19:52\t20:00\t20:08\t오수마을 경유\n' +
-            '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t19:30\tx\t19:45\t19:50\t20:07\tx\t20:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
-            '55\tx\tx\tx\tx\tx\tx\tx\t20:05\t20:15\t20:25\t20:30\t20:35\tx\tx\t20:55\t사곡, 장평시내 미경유\n' +
-            '52\tx\tx\t20:15\t20:18\t20:22\t20:27\tx\tx\tx\tx\t20:45\t20:50\t21:07\tx\t21:20\t장평시내 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t21:05\t21:10\t21:27\tx\t21:40\t거제자이 경유(21:20)|장평시내 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t21:25\t21:30\tx\tx\t21:50\t장평시내 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t22:20\t22:25\tx\tx\t22:45\t장평시내 미경유\n' +
-            '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t22:40\t22:45\tx\tx\t23:05\t수창 이후 국도변으로 터미널 운행\n' +
-            '52\tx\tx\t22:20\t22:23\t22:27\t22:32\tx\tx\tx\tx\t22:50\t22:55\tx\tx\t23:15\t수창 이후 국도변으로 터미널 운행'
-        )
+        $('#inputValue').val('50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t10:25\t10:30\t10:47\t10:55\t11:03\t\n' +
+            '52\tx\tx\t10:15\t10:18\t10:22\t10:27\tx\tx\tx\tx\t10:45\t10:50\t11:07\tx\t11:20\t장평시내 미경유');
+        // $('#inputValue').val(
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t6:55\t7:00\t7:17\t7:25\t7:33\t오수마을 경유\n' +
+        //     '52\tx\tx\t6:35\t6:38\t6:42\t6:47\tx\tx\tx\tx\t7:05\t7:10\t7:27\t7:35\t7:43\t장평오거리 미경유|(등교시)중앙고 운행\n' +
+        //     '51\tx\tx\tx\tx\tx\tx\t7:30\tx\tx\tx\t7:37\t7:42\t7:59\t8:07\t8:15\t해양사 발 오수마을 경유 |경남아너스빌@(08:05) 경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t7:40\tx\t7:55\t8:00\t8:17\t8:25\t8:33\t장평오거리 미경유|평지-부춘 도로 운행\n' +
+        //     '55\tx\tx\tx\tx\tx\tx\tx\t7:35\t7:47\t7:57\t8:05\t8:10\tx\tx\t8:30\t사곡, 장평시내 미경유\n' +
+        //     '52\tx\tx\t7:40\t7:43\t7:47\t7:52\tx\tx\tx\tx\t8:10\t8:15\t8:32\t8:40\t8:48\t장평오거리 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t8:20\t8:25\t8:42\t8:50\t8:58\t장평오거리 미경유|주말 및 공휴일 운행중지\n' +
+        //     '51\tx\tx\tx\tx\tx\tx\t8:20\tx\tx\tx\t8:27\t8:32\t8:49\t8:57\t9:05\t해양사 발 오수마을 경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t9:25\t9:30\t9:47\t9:55\t10:03\t오수마을 경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t9:30\tx\t9:45\t9:50\t10:07\tx\t10:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t10:25\t10:30\t10:47\t10:55\t11:03\t장평오거리 미경유\n' +
+        //     '52\tx\tx\t10:15\t10:18\t10:22\t10:27\tx\tx\tx\tx\t10:45\t10:50\t11:07\tx\t11:20\t장평시내 미경유\n' +
+        //     '55-1\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t11:05\t11:10\tx\tx\t11:30\t장평,사곡 미경유|다포,다대 경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t11:25\t11:30\t11:47\t11:55\t12:03\t오수마을 경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t11:30\tx\t11:45\t11:50\t12:07\tx\t12:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t12:25\t12:30\t12:47\t12:55\t13:03\t오수마을 경유\n' +
+        //     '52\tx\tx\t12:15\t12:18\t12:22\t12:27\tx\tx\tx\tx\t12:45\t12:50\t13:07\tx\t13:20\t사곡, 장평시내 미경유\n' +
+        //     '55\tx\tx\tx\tx\tx\tx\tx\t12:48\t13:00\t13:10\t13:15\t13:20\tx\tx\t13:40\t사곡, 장평 미경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t13:30\tx\t13:45\t13:50\t14:07\tx\t14:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t14:25\t14:30\t14:47\t14:55\t15:03\t오수마을 경유\n' +
+        //     '52\tx\tx\t14:15\t14:18\t14:22\t14:27\tx\tx\tx\tx\t14:45\t14:50\t15:07\tx\t15:20\t장평시내 미경유\n' +
+        //     '55\tx\tx\tx\tx\tx\tx\tx\t14:48\t15:00\t15:10\t15:15\t15:20\tx\tx\t15:40\t사곡, 장평시내 미경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t15:30\tx\t15:45\t15:50\t16:07\tx\t16:20\t장평미경유|평지-부춘 도로 운행\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t16:25\t16:30\t16:47\t16:55\t17:03\t오수마을 경유\n' +
+        //     '52\tx\tx\t16:15\t16:18\t16:22\t16:27\tx\tx\tx\tx\t16:45\t16:50\t17:07\tx\t17:20\t장평시내 미경유\n' +
+        //     '55\tx\tx\tx\tx\tx\tx\tx\t16:38\t16:50\t17:00\t17:05\t17:10\tx\tx\t17:30\t사곡, 장평시내 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t17:25\t17:30\t17:47\t17:55\t18:03\t오수마을 경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t17:30\tx\t17:45\t17:50\t18:07\tx\t18:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t18:25\t18:30\t18:47\t18:55\t19:03\t\n' +
+        //     '52\tx\tx\t18:15\t18:18\t18:22\t18:27\tx\tx\tx\tx\t18:45\t18:50\t19:07\tx\t19:20\t장평시내 미경유\n' +
+        //     '55\tx\tx\tx\tx\tx\tx\tx\t18:48\t19:00\t19:10\t19:15\t19:20\tx\tx\t19:40\t사곡, 장평시내 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t19:30\t19:35\t19:52\t20:00\t20:08\t오수마을 경유\n' +
+        //     '67-1\tx\tx\tx\tx\tx\tx\tx\tx\t19:30\tx\t19:45\t19:50\t20:07\tx\t20:20\t장평시내 미경유|평지-부춘 도로 운행\n' +
+        //     '55\tx\tx\tx\tx\tx\tx\tx\t20:05\t20:15\t20:25\t20:30\t20:35\tx\tx\t20:55\t사곡, 장평시내 미경유\n' +
+        //     '52\tx\tx\t20:15\t20:18\t20:22\t20:27\tx\tx\tx\tx\t20:45\t20:50\t21:07\tx\t21:20\t장평시내 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t21:05\t21:10\t21:27\tx\t21:40\t거제자이 경유(21:20)|장평시내 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t21:25\t21:30\tx\tx\t21:50\t장평시내 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t22:20\t22:25\tx\tx\t22:45\t장평시내 미경유\n' +
+        //     '50\tx\tx\tx\tx\tx\tx\tx\tx\tx\tx\t22:40\t22:45\tx\tx\t23:05\t수창 이후 국도변으로 터미널 운행\n' +
+        //     '52\tx\tx\t22:20\t22:23\t22:27\t22:32\tx\tx\tx\tx\t22:50\t22:55\tx\tx\t23:15\t수창 이후 국도변으로 터미널 운행'
+        // )
         saveKey();
         saveValue();
     });
