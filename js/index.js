@@ -80,7 +80,7 @@ function initEventListener(){
         loadTimeTable();
     });
     //Refresh 버튼 이벤트 등록
-    $('#refreshBtn').on("click",function () {
+    $('#refresh-button').on("click",function () {
         focusTimeTable();
     })
 

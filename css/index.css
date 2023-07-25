@@ -111,3 +111,26 @@ footer{
 .brown-text{
     color: brown;
 }
+
+#refresh-button {
+    position: fixed;
+    bottom: 110px;
+    right: 20px;
+    cursor: pointer;
+    /* 아이콘 크기 및 스타일을 설정하세요 */
+    font-size: 24px;
+    /* 아이콘 색상을 원하는 색상으로 설정하세요 */
+    color: #007bff;
+}
+.refresh-icon{
+    color: black;
+    font-size: 30px;
+}
+.refresh-icon:active{
+    color: gold;
+}
+
+.header-info{
+    background-color: #000000;
+    color: white;
+}
