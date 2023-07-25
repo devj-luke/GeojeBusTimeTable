@@ -1,44 +1,154 @@
-import {bus_data, busInKeys} from '../data/50-in-data.js'
+const FLAG_BUS_ROUTE_IN    = true;
+const FLAG_BUS_ROUTE_OUT   = false;
+
+let  flag
+    ,bus_data
+    ,busKeys;
+
 
 $(document).ready(function () {
     init();
 })
-
 function init(){
 
+    //초기 실행 시 고현->동부 방향으로 셋팅
+    flag = FLAG_BUS_ROUTE_IN;
+
+    importTimeTable().then(() => {
+
+        //개체별 기본 값 세팅
+        initComponent();
+        //개체별 이벤트 등록
+        initEventListener();
+
+        //시간표 생성
+        createHtml();
+        //시간표 포커싱
+        focusTimeTable();
+    })
+}
+
+/**
+ * 시간표 변환 시 데이터를 다시 생성하고 포커싱 하는 함수
+ * 중복 코드 제거를 위해서 만들었다.
+ */
+function loadTimeTable(){
+    importTimeTable().then(() => {
+        //데이터 로딩
+        console.log("Data Load OK");
+        //html 생성
+        createHtml();
+        //항목 포커싱
+        focusTimeTable();
+    });
+}
+
+/**
+ * 선택 상태에 따라 시간표 데이터를 import
+ * @returns {Promise<void>}
+ */
+async function importTimeTable() {
+
+    let obj;
+
+    if (flag)    {      obj = await import('../data/50-in-data.js')     }
+    else         {      obj = await import('../data/50-out-data.js')    }
+
+    //해당하는 값으로 초기화
+    bus_data    = obj.bus_data;
+    busKeys     = obj.busKeys;
+
+}
+
+/**
+ * 화면에서 사용되는 요소의 값을 셋팅하는 코드 모음이다.
+ * 초기 값 셋팅하는 코드를 모아둠
+ */
+function initComponent(){
     //select item 초기화
-    $.each(busInKeys,function (index,item) {
+    $.each(busKeys,function (index,item) {
         $('#select-start').append(`<option value="${index}">${item} </option>`);
     });
-
+}
+/**
+ * 화면에서 사용되는 리스너를 등록하는 코드 모음이다.
+ */
+function initEventListener(){
     //select 이벤트 등록
     $('#select-start').change(function (){
-        const   idx         = $('#select-start').val(),
-                value       = busInKeys[idx];//선택된 값 , ex) 고현
         $('.alert').addClass('d-none');
-        initList(value);
-        changeFocusBusTime();
+        loadTimeTable();
     });
     //Refresh 버튼 이벤트 등록
     $('#refreshBtn').on("click",function () {
-        const   idx         = $('#select-start').val(),
-                value       = busInKeys[idx];//선택된 값 , ex) 고현
-        initList(value);
-        changeFocusBusTime();
+        focusTimeTable();
     })
 
-    //목록 생성
-    //초기값은 항상 키의 첫번째 항목이다.
-    initList(busInKeys[0]);
+    $('.toggle-btn').on('click', function() {
+        const btnId = $(this).attr('id');
 
-    //시간 포커싱 하기
-    changeFocusBusTime();
-
+        switch (btnId){
+            case 'btn-bus-in':
+            {
+                if(!$('.btn-bus-in').hasClass('active')){
+                    flag = FLAG_BUS_ROUTE_IN;
+                    toggleBtnBus(this);
+                }
+                break;
+            }
+            case 'btn-bus-out':
+            {
+                if(!$('.btn-bus-out').hasClass('active')){
+                    flag = FLAG_BUS_ROUTE_OUT;
+                    toggleBtnBus(this);
+                }
+                break;
+            }
+        }
+    });
     //모바일 active 이슈 해결을 위해 추가
     $(document).on("touchstart", function(){ });
 }
+/**
+ * 버튼 클릭 시 active 상태 toggle 하는 함수.
+ * @param buttonElement 클릭된 버튼 this
+ */
+function toggleBtnBus(buttonElement){
+    // 현재 클릭한 버튼의 클래스를 토글 (active 클래스 추가 또는 제거)
+    $(buttonElement).toggleClass('active');
+    $('.toggle-btn').not(buttonElement).removeClass('active');
 
-function initList(select_key){
+    importTimeTable().then(() =>{
+        //데이터 성공 시
+        console.log("Data Load OK");
+        //기존 선택값 저장
+        let oriKey = $('#select-start option:selected').text().trim();
+        //select 초기화
+        $('#select-start').html('');
+        //select
+        $.each(busKeys,function (index,item) {
+            $('#select-start').append(`<option value="${index}">${item} </option>`);
+        });
+
+        //select 기존 값 있으면 유지 , 아니면 첫번째 항목 선택
+        let matchingOption = $('#select-start option').filter(function (){
+            return $(this).text().trim() === oriKey;
+        });
+        matchingOption.prop('selected',true);
+        //html 생성
+        createHtml();
+        //항목 포커싱
+        focusTimeTable();
+    });
+}
+
+/**
+ * 불러온 데이터를 기반으로 html을 생성하는 함수다.
+ */
+function createHtml(){
+
+    const    select_key      = $('#select-start option:selected').text().trim();
+    // console.log("|" + select_key + "|")
 
     //기존 값 초기화
     $('.content').html('');
@@ -93,7 +203,11 @@ function getCurrentTime(separator) {
 
     return  `${hour}${separator ?? ''}${min}`;
 }
-function changeFocusBusTime(){
+
+/**
+ * 생성한 html 요소에서 탑승 가능한 버스 시간으로 이동 시켜주는 함수.
+ */
+function focusTimeTable(){
     const    busTime            = $('.item__number:nth-child(1) > div:nth-child(2)')
             ,currentTime        = getCurrentTime()
             ,currentTimeInt     = parseInt(currentTime)
@@ -117,9 +231,7 @@ function changeFocusBusTime(){
         */
         if(currentTimeInt <= time){
             const    item   = $(element).parent().parent()
-                    ,pos    = $(item).offset().top - $('header').height() - 10;         //.item 시작 위치
-                                                                                        // div 위치 - 상단 header - 뛰우고싶은값
-
+                    ,pos    = $(item).offset().top - $('header').height() - 10;         //.item 시작 위치// div 위치 - 상단 header - 뛰우고싶은값
             //색상 변경
             $(item).addClass('item-focus');
 
@@ -131,7 +243,6 @@ function changeFocusBusTime(){
             isBusTime = true;
             return false;
         }
-
     });
 
     /**
@@ -161,7 +272,6 @@ function changeFocusBusTime(){
     else{
         $('.btn').addClass('disabled')
     }
-    return true;
 }
 
 /**
