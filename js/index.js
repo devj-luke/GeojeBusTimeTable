@@ -274,9 +274,9 @@ function focusTimeTable(){
      * Focus 이동할 필요가 있을때만 조회버튼 비활성화 시킨다.
      */
     if(isBusTime){
-        $('.btn').addClass('disabled')
+        $('.refresh-icon').addClass('disabled')
         setTimeout(function () {
-            $('.btn').removeClass('disabled');
+            $('.refresh-icon').removeClass('disabled');
         },1000)
     }
     else{

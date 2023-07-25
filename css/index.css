@@ -87,16 +87,17 @@ footer{
     font-size: 0.9rem;
 }
 /* 비활성 버튼에 대한 스타일링 */
-.btn.disabled,
-.btn:disabled {
+.refresh-icon.disabled,
+.refresh-icon:disabled {
     pointer-events: none; /* 클릭 및 이벤트 무시 */
     opacity: 0.65; /* 투명도를 조정하여 비활성 상태 시 시각적으로 구분 */
-    background-color: silver;
+    /*background-color: silver;*/
+    color: transparent;
 }
 
 /* .disabled 클래스가 적용된 버튼에 대한 active 효과 제거 */
-.btn.disabled.active,
-.btn:disabled.active {
+.refresh-icon.disabled.active,
+.refresh-icon:disabled.active {
     box-shadow: none; /* active 시 그림자 효과 제거 */
     /* 다른 active 스타일을 제거하고 싶은 경우 추가 스타일링을 여기에 기술할 수 있습니다. */
 }
