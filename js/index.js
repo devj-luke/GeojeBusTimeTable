@@ -148,7 +148,10 @@ function toggleBtnBus(buttonElement){
 function createHtml(){
 
     const    select_key      = $('#select-start option:selected').text().trim();
-    // console.log("|" + select_key + "|")
+
+    //시간 선택 버튼에 선택한 경로 표기
+    $('.btn-bus-in').text(`고현 →  ${select_key}`);
+    $('.btn-bus-out').text(`${select_key} →  고현`);
 
     //기존 값 초기화
     $('.content').html('');
