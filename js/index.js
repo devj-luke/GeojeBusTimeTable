@@ -50,14 +50,21 @@ function loadTimeTable(){
 async function importTimeTable() {
 
     let obj;
+    const    routeNumber = $('#select-route-number option:selected').val();
 
-    if (flag)    {      obj = await import('../data/50-in-data.js')     }
-    else         {      obj = await import('../data/50-out-data.js')    }
+    switch (routeNumber){
+        case "50":
+        {
+            obj = await import('../data/50-data.js');
+            break;
+        }
+    }
+
+    if (flag)    {      bus_data = obj.bus_data_in;     }
+    else         {      bus_data = obj.bus_data_out;    }
 
     //해당하는 값으로 초기화
-    bus_data    = obj.bus_data;
     busKeys     = obj.busKeys;
-
 }
 
 /**
