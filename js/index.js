@@ -143,26 +143,27 @@ function createHtml(){
     //기존 값 초기화
     $('.content').html('');
 
-    console.log(bus_data);
     //List 항목 생성
-    $.each((bus_data),function (index,item) {
+    let data = $(bus_data).filter(function (index,item){
+        return item.hasOwnProperty(select_key);
+    });
 
-        //현재 선택된 터미널 , 초기값은 항상 0
+    $.each(data,function (index,item) {
         const    busNumber      = item.번호
-                ,keyExists      = bus_data[index].hasOwnProperty(select_key)
-                ,busTime        = keyExists ? bus_data[index][select_key] : "X"
-                ,busInfo        = bus_data[index]["비고"].replace(/\n/g, "<br>")
-                ,keys           = Object.keys(bus_data[index])//bus_data[index] 요소의 키를 뽑아냄
+                ,keys           = Object.keys(data[index])//bus_data[index] 요소의 키를 뽑아냄
+                ,busTime        = flag ? item[keys[1]] : item[select_key]
+                ,busInfo        = data[index]["비고"].replace(/\n/g, "<br>")
                 ,fianlRoute     = keys[keys.length-2];
 
         let busRoute ='';
 
         $.each(keys.slice(1,keys.length-1),function (idx,item){
-            let     routeName = bus_data[index][item].trim();
+            let      routeName      = data[index][item].trim()
+                    ,highlightKey   = flag ? '고현' : select_key;
             if(routeName === '시간 미제공'){
                 routeName = 'X';
             }
-            if(keys[idx+1] === select_key){
+            if(keys[idx+1] === highlightKey   ){
                 item = `<span class="routeName-select">${item}</span>`
             }
             else{
@@ -171,7 +172,6 @@ function createHtml(){
             busRoute += `<span class='brown-text'>${idx !== 0 ? '<b> → </b>' : ''}</span>`
             busRoute += `${item}<span class="routeTime">(${routeName})</span>`
         });
-
         let busInfoColorText = createBusInfoColorText(busInfo);
 
         if(busTime !=="X") {
@@ -200,7 +200,7 @@ function createHtml(){
             );
 
         }
-    })
+    });
 }
 function getCurrentTime(separator) {
     const    date = new Date()
