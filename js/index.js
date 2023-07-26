@@ -125,28 +125,7 @@ function toggleBtnBus(buttonElement){
     $(buttonElement).toggleClass('active');
     $('.toggle-btn').not(buttonElement).removeClass('active');
 
-    importTimeTable().then(() =>{
-        //데이터 성공 시
-        console.log("Data Load OK");
-        //기존 선택값 저장
-        let oriKey = $('#select-start option:selected').text().trim();
-        //select 초기화
-        $('#select-start').html('');
-        //select
-        $.each(busKeys,function (index,item) {
-            $('#select-start').append(`<option value="${index}">${item} </option>`);
-        });
-
-        //select 기존 값 있으면 유지 , 아니면 첫번째 항목 선택
-        let matchingOption = $('#select-start option').filter(function (){
-            return $(this).text().trim() === oriKey;
-        });
-        matchingOption.prop('selected',true);
-        //html 생성
-        createHtml();
-        //항목 포커싱
-        focusTimeTable();
-    });
+    loadTimeTable();
 }
 
 /**
