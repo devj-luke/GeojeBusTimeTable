@@ -235,6 +235,10 @@ function focusTimeTable(){
     });
     if(cntNoTimeValue.length === busTime.length){
         $('.alert-info').show();
+        //최상단으로 포커스 이동 시킴
+        $('html, body').animate({
+            scrollTop: 0
+        }, 500);
         return 0;
     }
 
