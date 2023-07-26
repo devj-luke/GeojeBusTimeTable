@@ -143,19 +143,35 @@ function createHtml(){
     //기존 값 초기화
     $('.content').html('');
 
+    console.log(bus_data);
     //List 항목 생성
     $.each((bus_data),function (index,item) {
 
         //현재 선택된 터미널 , 초기값은 항상 0
-        const    busNumber  = item.번호
-                ,keyExists  = bus_data[index].hasOwnProperty(select_key)
-                ,busTime    = keyExists ? bus_data[index][select_key] : "X"
-                ,busInfo    = bus_data[index]["비고"].replace(/\n/g, "<br>")
-                ,keys       = Object.keys(bus_data[index])//bus_data[index] 요소의 키를 뽑아냄
-                ,busRoute    = keys.slice(1,keys.length-1).join("<span class='brown-text'><b> → </b></span>")
-                ,fianlRoute  = keys[keys.length-2];
+        const    busNumber      = item.번호
+                ,keyExists      = bus_data[index].hasOwnProperty(select_key)
+                ,busTime        = keyExists ? bus_data[index][select_key] : "X"
+                ,busInfo        = bus_data[index]["비고"].replace(/\n/g, "<br>")
+                ,keys           = Object.keys(bus_data[index])//bus_data[index] 요소의 키를 뽑아냄
+                ,fianlRoute     = keys[keys.length-2];
 
-        // let busInfo = bus_data[index]["비고"].replace(/\n/g, "<br>");
+        let busRoute ='';
+
+        $.each(keys.slice(1,keys.length-1),function (idx,item){
+            let     routeName = bus_data[index][item].trim();
+            if(routeName === '시간 미제공'){
+                routeName = 'X';
+            }
+            if(keys[idx+1] === select_key){
+                item = `<span class="routeName-select">${item}</span>`
+            }
+            else{
+                item = `<span class="routeName-none">${item}</span>`
+            }
+            busRoute += `<span class='brown-text'>${idx !== 0 ? '<b> → </b>' : ''}</span>`
+            busRoute += `${item}<span class="routeTime">(${routeName})</span>`
+        });
+
         let busInfoColorText = createBusInfoColorText(busInfo);
 
         if(busTime !=="X") {

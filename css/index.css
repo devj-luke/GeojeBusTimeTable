@@ -135,3 +135,15 @@ footer{
     background-color: #000000;
     color: white;
 }
+
+.routeTime{
+    font-size: 8px;
+    color: black;
+}
+.routeName-select{
+    color: green;
+    font-weight: bold;
+}
+.routeName-none{
+    color: #696969;
+}
