@@ -151,7 +151,8 @@ function createHtml(){
     $.each(data,function (index,item) {
         const    busNumber      = item.번호
                 ,keys           = Object.keys(data[index])//bus_data[index] 요소의 키를 뽑아냄
-                ,busTime        = flag ? item[keys[1]] : item[select_key]
+                ,firstKey       = keys[1]
+                ,busTime        = flag ? item[firstKey] : item[select_key]
                 ,busInfo        = data[index]["비고"].replace(/\n/g, "<br>")
                 ,fianlRoute     = keys[keys.length-2];
 
@@ -159,7 +160,7 @@ function createHtml(){
 
         $.each(keys.slice(1,keys.length-1),function (idx,item){
             let      routeName      = data[index][item].trim()
-                    ,highlightKey   = flag ? '고현' : select_key;
+                    ,highlightKey   = flag ? firstKey : select_key;
             if(routeName === '시간 미제공'){
                 routeName = 'X';
             }
