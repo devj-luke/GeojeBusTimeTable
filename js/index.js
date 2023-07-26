@@ -33,11 +33,10 @@ function init(){
  * 중복 코드 제거를 위해서 만들었다.
  */
 function loadTimeTable(){
+    //데이터 로딩
     importTimeTable().then(() => {
         //기준 시간 출력
         $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
-        //데이터 로딩
-        console.log("Data Load OK");
         //html 생성
         createHtml();
         //항목 포커싱
@@ -154,24 +153,26 @@ function createHtml(){
                 ,firstKey       = keys[1]
                 ,busTime        = flag ? item[firstKey] : item[select_key]
                 ,busInfo        = data[index]["비고"].replace(/\n/g, "<br>")
-                ,fianlRoute     = keys[keys.length-2];
+                ,finalRoute     = keys[keys.length-2];
 
         let busRoute ='';
 
         $.each(keys.slice(1,keys.length-1),function (idx,item){
-            let      routeName      = data[index][item].trim()
-                    ,highlightKey   = flag ? firstKey : select_key;
-            if(routeName === '시간 미제공'){
-                routeName = 'X';
+            let      routeTime      = data[index][item].trim();
+            const    toggleBtn      = $('.active').text().split('→')
+                    ,start          = toggleBtn[0].trim()
+                    ,end            = toggleBtn[1].trim();
+            if(routeTime === '시간 미제공'){
+                routeTime = 'X';
             }
-            if(keys[idx+1] === highlightKey   ){
+            if(keys[idx+1] === start || keys[idx+1] === end){
                 item = `<span class="routeName-select">${item}</span>`
             }
             else{
                 item = `<span class="routeName-none">${item}</span>`
             }
             busRoute += `<span class='brown-text'>${idx !== 0 ? '<b> → </b>' : ''}</span>`
-            busRoute += `${item}<span class="routeTime">(${routeName})</span>`
+            busRoute += `${item}<span class="routeTime">(${routeTime})</span>`
         });
         let busInfoColorText = createBusInfoColorText(busInfo);
 
@@ -187,7 +188,7 @@ function createHtml(){
                                             </div>
                                             <div class="item__number    d-flex">
                                                 <div class="title content-border-bottom">종점</div>
-                                                <div class="value content-border-bottom pl-2">${fianlRoute}</div>
+                                                <div class="value content-border-bottom pl-2">${finalRoute}</div>
                                             </div>
                                             <div class="item__info      d-flex">
                                                 <div class="title content-border-bottom">경로</div>
