@@ -15,7 +15,7 @@ function init(){
     flag = FLAG_BUS_ROUTE_IN;
 
     importTimeTable().then(() => {
-
+        $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
         //개체별 기본 값 세팅
         initComponent();
         //개체별 이벤트 등록
@@ -34,6 +34,8 @@ function init(){
  */
 function loadTimeTable(){
     importTimeTable().then(() => {
+        //기준 시간 출력
+        $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
         //데이터 로딩
         console.log("Data Load OK");
         //html 생성
@@ -83,7 +85,6 @@ function initComponent(){
 function initEventListener(){
     //select 이벤트 등록
     $('#select-start').change(function (){
-        $('.alert').addClass('d-none');
         loadTimeTable();
     });
     //Refresh 버튼 이벤트 등록
@@ -161,7 +162,7 @@ function createHtml(){
             $('.content').append(`    <div class="d-flex flex-column item">
                                             <div class="item__number    d-flex">
                                                 <div class="title content-border-bottom">시간</div>
-                                                <div class="value content-border-bottom pl-2">${busTime}</div>
+                                                <div id="bus-time-value" class="value content-border-bottom pl-2">${busTime}</div>
                                             </div>
                                             <div class="item__number    d-flex">
                                                 <div class="title content-border-bottom">번호</div>
@@ -197,57 +198,69 @@ function getCurrentTime(separator) {
  * 생성한 html 요소에서 탑승 가능한 버스 시간으로 이동 시켜주는 함수.
  */
 function focusTimeTable(){
-    const    busTime            = $('.item__number:nth-child(1) > div:nth-child(2)')
+    const    busTime            = $('[id="bus-time-value"]')
             ,currentTime        = getCurrentTime()
             ,currentTimeInt     = parseInt(currentTime)
-            ,currentTimeString  = convertToTimeString(currentTime);
+            ,alert              = $('.alert');
 
-    //탈수있는 버스 존재 확인용 변수
-    let     isBusTime   = false;
+    //모든 alert 비활성화
+    $(alert).hide();
 
-    //기준 시간 출력
-    $('.button-label').text(`현재 시간표는 ${currentTimeString} 기준입니다.`);
+    //생성된 HTML 미존재
+    if(busTime.length === 0 ){
+        $('.alert-danger').show();
+        return 0;
+    }
+    //생성된 HTML 존재 시
 
-    //현재 출력된 모든 시간표의 시간을 가지고 반복문을 실행함
-    busTime.each(function (index,element) {
-        //시간표 시간 정수형으로 변환
-        let time = parseInt($(element).text().replace(":",""));
+    //시간 미제공만 있는 경우
+    const cntNoTimeValue = busTime.filter(function () {
+        return $(this).text().trim() === '시간 미제공';
+    });
+    if(cntNoTimeValue.length === busTime.length){
+        $('.alert-info').show();
+        return 0;
+    }
 
-        /*
-        * 이 로직의 핵심은 현재시간의 06:00를 600와 같이 정수로 변경하여 그 값을 비교하는 것이다.
-        * 현재 값 보다 시간표의 값이 작으면 해당되지 않을 것이고 크다면 현재 탈 수 있는 시간인 점을 생각했다.
-        * 해당 if문을 비교하여 시간표의 값이 크면 루프는 종료되고 해당 시간표로 포커싱 된다.
-        */
-        if(currentTimeInt <= time){
-            const    item   = $(element).parent().parent()
-                    ,pos    = $(item).offset().top - $('header').height() - 10;         //.item 시작 위치// div 위치 - 상단 header - 뛰우고싶은값
-            //색상 변경
-            $(item).addClass('item-focus');
-
-            //포커스 이동 시킴
-            $('html, body').animate({
-                scrollTop: pos
-            }, 500);
-
-            isBusTime = true;
-            return false;
-        }
+    //시간 값 존재 시
+    const cntTimeValue = busTime.filter(function () {
+        return $(this).text().trim() !== '시간 미제공';
     });
 
-    /**
-     *  탈수있는지 없는 여부별로 alert 뛰움
-     *  @param isBusTime true : 탈 버스 존재 , false : 탈버스 미존재
-     */
-    if(isBusTime){
-        $('.alert').addClass('d-none');
-    }
-    else{
-        $('.alert').removeClass('d-none');
-        //맨 상단으로 포커스 이동
+    let isBusTime = false;
+
+    $.each(cntTimeValue,function (index,item) {
+        let value = parseInt($(item).text().replace(':',''));
+        if(currentTimeInt <= value){
+            const    parentItem = $(item).parent().parent()
+                    ,pos        = $(parentItem).offset().top - $('header').height() - 10;
+            //해당 항목 active
+            $(parentItem).addClass('item-focus');
+
+            //포커스 이동
+            $('html,body').animate({
+                scrollTop:pos
+            },500);
+
+            isBusTime = true;
+            return false;//each 종료
+        }
+    })
+    //탑승 가능한 버스가 없을 경우
+    if(!isBusTime){
+        //가능한 시간 없을 경우
+        if(cntTimeValue.length === busTime.length){
+            $('.alert-warning').show();
+        }
+        else{
+            $('.alert-info').show();
+        }
+        //최상단으로 포커스 이동 시킴
         $('html, body').animate({
             scrollTop: 0
         }, 500);
     }
+
     /**
      * 중복 클릭 방지 로직
      * Focus 이동할 필요가 있을때만 조회버튼 비활성화 시킨다.
@@ -259,7 +272,7 @@ function focusTimeTable(){
         },1000)
     }
     else{
-        $('.btn').addClass('disabled')
+        $('.refresh-icon').addClass('disabled')
     }
 }
 
