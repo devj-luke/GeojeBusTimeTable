@@ -307,9 +307,11 @@ function createBusInfoColorText(text){
 
     $.each(busInfoArray, function(index, item) {
         let textColor = '';
-        if (item.includes('미경유')) {
+        if (    item.includes('미경유')
+            ||  item.includes('운행중지')) {
             textColor = 'red-text';
-        } else if (item.includes('경유')) {
+        } else if (     item.includes('경유')
+                    ||  item.includes('운행') ) {
             textColor = 'blue-text';
         }
         tempText += `<span class="${textColor}">${item}</span><br>`;
