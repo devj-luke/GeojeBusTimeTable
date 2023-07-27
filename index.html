@@ -50,19 +50,23 @@
             <button id="btn-bus-in" type="button" class="btn-bus-in toggle-btn active">-</button>
             <button id="btn-bus-out" type="button" class="btn-bus-out toggle-btn">-</button>
         </div>
-        <div class="input-group pb-2">
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="select-route-number">노선</label>
+        <div class="d-flex">
+            <div class="d-flex div-route">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="select-route-number">노선</label>
+                </div>
+                <select class="custom-select" id="select-route-number">
+                    <option value="50">50번대(고현-동부,남부)</option>
+                    <option value="70">70번대(고현-상문동-거제,둔덕,대교)    </option>
+                </select>
             </div>
-            <select class="custom-select" id="select-route-number">
-                <option value="50">50번대(고현-동부,남부)</option>
-                <option value="70">70번대(고현-상문동-거제,둔덕,대교)    </option>
-            </select>
-            <div class="input-group-prepend">
-                <label class="input-group-text" for="select-start">경로</label>
+            <div class="d-flex div-path">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="select-start">경로</label>
+                </div>
+                <select class="custom-select" id="select-start">
+                </select>
             </div>
-            <select class="custom-select" id="select-start">
-            </select>
         </div>
     </footer>
 </body>
