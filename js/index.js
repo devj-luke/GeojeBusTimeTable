@@ -271,7 +271,13 @@ function focusTimeTable(){
     //탑승 가능한 버스가 없을 경우
     if(!isBusTime){
         //가능한 시간 없을 경우
-        if(cntTimeValue.length === busTime.length){
+        let lasIdx = -1;
+        $.each(busTime,function (index,item) {
+            if($(item).text().trim() === $(cntTimeValue[cntTimeValue.length-1]).text().trim()){
+                lasIdx = index;
+            }
+        })
+        if(lasIdx === busTime.length-1){
             $('.alert-warning').show();
         }
         else{
