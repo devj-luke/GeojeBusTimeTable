@@ -102,8 +102,11 @@ async function importTimeTable() {
         case "50":
         {
             obj = await import('../data/50-data.js');
-            if (gFlag)    {      bus_data = obj.bus_data_in;     }
-            else          {      bus_data = obj.bus_data_out;    }
+            break;
+        }
+        case "70":
+        {
+            obj = await import('../data/70-data.js');
             break;
         }
         default:
@@ -111,6 +114,8 @@ async function importTimeTable() {
             throw new Error("시간표를 가져오는 중에 오류가 발생했습니다.");
         }
     }
+    if (gFlag)    {      bus_data = obj.bus_data_in;     }
+    else          {      bus_data = obj.bus_data_out;    }
     busKeys     = obj.busKeys;
 }
 
@@ -130,10 +135,25 @@ function initComponent(){
 function initEventListener(){
     //노선 select 이벤트 등록
     $('#select-route-number').change(function (){
-        const route = $('#select-route-number option:selected').val();
-        localStorage.setItem("gRoute",route);
-        gRoute = route;
-        loadTimeTable();
+        gRoute  = $('#select-route-number option:selected').val()
+        importTimeTable()
+            .then(()=>{
+                gPath   = busKeys[0];
+                localStorage.setItem("gRoute",gRoute);
+                localStorage.setItem("gPath",gPath);
+
+                //경로 select 변경
+                $('#select-route-number').val(gRoute);
+                //select item 초기화
+                const select = $('#select-start');
+                $(select).html('');
+                $.each(busKeys,function (index,item) {
+                    $('#select-start').append(`<option value="${item}">${item} </option>`);
+                });
+                $(select).val(gPath);
+
+                loadTimeTable();
+        });
     });
     //select 이벤트 등록
     $('#select-start').change(function (){
