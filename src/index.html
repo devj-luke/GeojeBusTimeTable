@@ -33,9 +33,12 @@
         해당 구간 제공되는 시간 정보가 없습니다.<br>
         경로의 시간정보를 참조해주세요.
     </div>
-    <div class="alert alert-danger mb-2 msg-alert" style="display: none;" role="alert">
+    <div class="alert alert-danger mb-2 msg-alert alert-path" style="display: none;" role="alert">
         <strong>존재하지 않는 구간</strong><br>
         해당 구간은 존재하지 않는 구간입니다.
+    </div>
+    <div class="alert alert-danger mb-2 msg-alert alert-file" style="display: none;" role="alert">
+        <strong>해당 파일이 미존재합니다.</strong><br>
     </div>
     <main class="content">
     </main>
@@ -45,8 +48,8 @@
     <footer class="text-white">
 
         <div class="toggle-wrapper pl-0 pr-0 pb-2">
-            <button id="btn-bus-in" type="button" class="btn-bus-in toggle-btn active"></button>
-            <button id="btn-bus-out" type="button" class="btn-bus-out toggle-btn"></button>
+            <button id="btn-bus-in" type="button" class="btn-bus-in toggle-btn active">-</button>
+            <button id="btn-bus-out" type="button" class="btn-bus-out toggle-btn">-</button>
         </div>
         <div class="input-group pb-2">
             <div class="input-group-prepend">
@@ -54,7 +57,7 @@
             </div>
             <select class="custom-select" id="select-route-number">
                 <option value="50">50번대</option>
-<!--                <option value="70">70번대</option>-->
+                <option value="70">70번대</option>
             </select>
             <div class="input-group-prepend">
                 <label class="input-group-text" for="select-start">경로</label>

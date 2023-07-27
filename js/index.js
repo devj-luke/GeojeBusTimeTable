@@ -1,7 +1,9 @@
 const FLAG_BUS_ROUTE_IN    = true;
 const FLAG_BUS_ROUTE_OUT   = false;
 
-let  flag
+let  gFlag
+    ,gRoute
+    ,gPath
     ,bus_data
     ,busKeys;
 
@@ -10,24 +12,68 @@ $(document).ready(function () {
     init();
 })
 function init(){
+    //로컬스토리지 확인
+    checkLocalStorageRoute();
+    importTimeTable()
+        .then(() => {
+            $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
+            //개체별 기본 값 세팅
+            initComponent();
+            //개체별 이벤트 등록
+            initEventListener();
 
-    //초기 실행 시 고현->동부 방향으로 셋팅
-    flag = FLAG_BUS_ROUTE_IN;
+            checkLocalStoragePath();
 
-    importTimeTable().then(() => {
-        $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
-        //개체별 기본 값 세팅
-        initComponent();
-        //개체별 이벤트 등록
-        initEventListener();
-
-        //시간표 생성
-        createHtml();
-        //시간표 포커싱
-        focusTimeTable();
-    })
+            //시간표 생성
+            createHtml();
+            //시간표 포커싱
+            focusTimeTable();
+        })
+        .catch((error) =>{
+            console.error("예외가 발생했습니다:", error.message);
+            $('.alert').hide();
+            $('.alert-file').show();
+        })
 }
+/**
+ * 페이지 로딩 시 로컬 스토리지 노선 정보가 있는지 확인한다.
+ */
+function checkLocalStorageRoute(){
+    const    route = localStorage.getItem('gRoute')
+            ,flag   = localStorage.getItem('gFlag');
+    if(route !== null && flag !== null){
+        gFlag   = JSON.parse(flag);
+        gRoute  = localStorage.getItem("gRoute");
 
+        $('#select-route-number').val(gRoute);
+
+        let buttonElement;
+        if(gFlag)   {   buttonElement = $('#btn-bus-in');   }
+        else        {   buttonElement = $('#btn-bus-out');  }
+        buttonElement.addClass('active');
+        $('.toggle-btn').not(buttonElement).removeClass('active');
+    }
+    else{
+        gRoute = $('#select-route-number option:selected').val();
+        localStorage.setItem("gRoute",gRoute);
+        localStorage.setItem("gFlag",JSON.stringify(FLAG_BUS_ROUTE_IN));
+    }
+}
+/**
+ * 페이지 로딩 시 로컬 스토리지 경로 정보가 있는지 확인한다.
+ */
+function checkLocalStoragePath(){
+    const path   = localStorage.getItem('gPath');
+
+    if( path !== null){
+        gPath   = localStorage.getItem("gPath");
+        $('#select-start').val(gPath);
+    }
+    else{
+        gPath = $('#select-start option:selected').text().trim();
+        localStorage.setItem("gPath",gPath);
+    }
+}
 /**
  * 시간표 변환 시 데이터를 다시 생성하고 포커싱 하는 함수
  * 중복 코드 제거를 위해서 만들었다.
@@ -51,20 +97,20 @@ function loadTimeTable(){
 async function importTimeTable() {
 
     let obj;
-    const    routeNumber = $('#select-route-number option:selected').val();
 
-    switch (routeNumber){
+    switch (gRoute){
         case "50":
         {
             obj = await import('../data/50-data.js');
+            if (gFlag)    {      bus_data = obj.bus_data_in;     }
+            else          {      bus_data = obj.bus_data_out;    }
             break;
         }
+        default:
+        {
+            throw new Error("시간표를 가져오는 중에 오류가 발생했습니다.");
+        }
     }
-
-    if (flag)    {      bus_data = obj.bus_data_in;     }
-    else         {      bus_data = obj.bus_data_out;    }
-
-    //해당하는 값으로 초기화
     busKeys     = obj.busKeys;
 }
 
@@ -75,15 +121,25 @@ async function importTimeTable() {
 function initComponent(){
     //select item 초기화
     $.each(busKeys,function (index,item) {
-        $('#select-start').append(`<option value="${index}">${item} </option>`);
+        $('#select-start').append(`<option value="${item}">${item} </option>`);
     });
 }
 /**
  * 화면에서 사용되는 리스너를 등록하는 코드 모음이다.
  */
 function initEventListener(){
+    //노선 select 이벤트 등록
+    $('#select-route-number').change(function (){
+        const route = $('#select-route-number option:selected').val();
+        localStorage.setItem("gRoute",route);
+        gRoute = route;
+        loadTimeTable();
+    });
     //select 이벤트 등록
     $('#select-start').change(function (){
+        const path = $('#select-start option:selected').text().trim()
+        localStorage.setItem("gPath",path);
+        gPath=path;
         loadTimeTable();
     });
     //Refresh 버튼 이벤트 등록
@@ -98,7 +154,8 @@ function initEventListener(){
             case 'btn-bus-in':
             {
                 if(!$('.btn-bus-in').hasClass('active')){
-                    flag = FLAG_BUS_ROUTE_IN;
+                    gFlag = FLAG_BUS_ROUTE_IN;
+                    localStorage.setItem("gFlag",JSON.stringify(FLAG_BUS_ROUTE_IN));
                     toggleBtnBus(this);
                 }
                 break;
@@ -106,7 +163,8 @@ function initEventListener(){
             case 'btn-bus-out':
             {
                 if(!$('.btn-bus-out').hasClass('active')){
-                    flag = FLAG_BUS_ROUTE_OUT;
+                    gFlag = FLAG_BUS_ROUTE_OUT;
+                    localStorage.setItem("gFlag",JSON.stringify(FLAG_BUS_ROUTE_OUT));
                     toggleBtnBus(this);
                 }
                 break;
@@ -133,25 +191,24 @@ function toggleBtnBus(buttonElement){
  */
 function createHtml(){
 
-    const    select_key      = $('#select-start option:selected').text().trim();
 
     //시간 선택 버튼에 선택한 경로 표기
-    $('.btn-bus-in').text(`고현 →  ${select_key}`);
-    $('.btn-bus-out').text(`${select_key} →  고현`);
+    $('.btn-bus-in').text(`고현 →  ${gPath}`);
+    $('.btn-bus-out').text(`${gPath} →  고현`);
 
     //기존 값 초기화
     $('.content').html('');
 
     //List 항목 생성
     let data = $(bus_data).filter(function (index,item){
-        return item.hasOwnProperty(select_key);
+        return item.hasOwnProperty(gPath);
     });
 
     $.each(data,function (index,item) {
         const    busNumber      = item.번호
                 ,keys           = Object.keys(data[index])//bus_data[index] 요소의 키를 뽑아냄
                 ,firstKey       = keys[1]
-                ,busTime        = flag ? item[firstKey] : item[select_key]
+                ,busTime        = gFlag ? item[firstKey] : item[gPath]
                 ,busInfo        = data[index]["비고"].replace(/\n/g, "<br>")
                 ,finalRoute     = keys[keys.length-2];
 
@@ -226,7 +283,7 @@ function focusTimeTable(){
 
     //생성된 HTML 미존재
     if(busTime.length === 0 ){
-        $('.alert-danger').show();
+        $('.alert-path').show();
         return 0;
     }
     //생성된 HTML 존재 시
