@@ -298,6 +298,9 @@ function focusTimeTable(){
             ,currentTimeInt     = parseInt(currentTime)
             ,alert              = $('.alert');
 
+    //기존 item 포커스 제거
+    $('.item-focus').removeClass('item-focus');
+
     //모든 alert 비활성화
     $(alert).hide();
 
