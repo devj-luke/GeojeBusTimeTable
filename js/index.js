@@ -256,23 +256,23 @@ function createHtml(){
         if(busTime !=="X") {
             $('.content').append(`    <div class="d-flex flex-column item">
                                             <div class="item__number    d-flex">
-                                                <div class="title content-border-bottom">시간</div>
+                                                <div class="title">시간</div>
                                                 <div id="bus-time-value" class="value content-border-bottom pl-2">${busTime}</div>
                                             </div>
                                             <div class="item__number    d-flex">
-                                                <div class="title content-border-bottom">번호</div>
+                                                <div class="title">번호</div>
                                                 <div class="value content-border-bottom pl-2">${busNumber}</div>
                                             </div>
                                             <div class="item__number    d-flex">
-                                                <div class="title content-border-bottom">종점</div>
+                                                <div class="title">종점</div>
                                                 <div class="value content-border-bottom pl-2">${finalRoute}</div>
                                             </div>
                                             <div class="item__info      d-flex">
-                                                <div class="title content-border-bottom">경로</div>
+                                                <div class="title">경로</div>
                                                 <div class="value content-border-bottom pl-2">${busRoute}</div>
                                             </div>
                                             <div class="item__etc       d-flex">
-                                                <div class="title">비고</div>
+                                                <div class="title-etc">비고</div>
                                                 <div class="value pl-2">${busInfoColorText}</div>
                                             </div>
                                         </div>`

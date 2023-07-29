@@ -29,22 +29,31 @@ footer{
     flex-basis: 100px;
     background-color: #3F4045;
     color: white;
+    border-bottom: 1px solid white;
     flex-shrink: 0;
-
-    border: 1px solid #CCCCCC;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+.title-etc{
+    flex-basis: 100px;
+    background-color: #3F4045;
+    color: white;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item__etc:first-child{
+    color: red;
+}
 .value{
     flex-basis: 100%;
     border-left: 1px solid black;
 }
 
 .content-border-bottom{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #000000;
 }
 
 /* 버스 탑승 가능 시 색상*/
