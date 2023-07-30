@@ -17,7 +17,10 @@
 3. 보시려는 방향을 선택해 주세요.
 
     <img width="480" alt="image" src="https://user-images.githubusercontent.com/102304046/257046624-0e1f86e6-3681-45a3-80a7-d42223485b45.png">
-
+4. 현재 탑승 가능한 버스 방향의 시간이 표시됩니다.
+ 
+    <img width="480" alt="image" src="https://user-images.githubusercontent.com/102304046/257048623-3d5f5743-9ff9-43c9-9752-7e34d94cdd53.png">
+ 
 # 사용 예시
 ![GIFMaker_me](https://user-images.githubusercontent.com/102304046/257046131-976d48ca-37c6-4483-ae15-a0a397fdd480.gif)
 
