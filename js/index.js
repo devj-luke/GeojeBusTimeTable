@@ -256,8 +256,8 @@ function createHtml(){
         if(busTime !=="X") {
             $('.content').append(`    <div class="d-flex flex-column item">
                                             <div class="item__number    d-flex">
-                                                <div class="title">시간</div>
-                                                <div id="bus-time-value" class="value content-border-bottom pl-2">${busTime}</div>
+                                                <div class="title title-color">시간</div>
+                                                <div id="bus-time-value" class="value content-border-bottom pl-2 value-time">${busTime}</div>
                                             </div>
                                             <div class="item__number    d-flex">
                                                 <div class="title">번호</div>
