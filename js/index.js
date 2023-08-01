@@ -1,11 +1,12 @@
-const FLAG_BUS_ROUTE_IN    = true;
-const FLAG_BUS_ROUTE_OUT   = false;
 
-let  gFlag
-    ,gRoute
-    ,gPath
-    ,bus_data
-    ,busKeys;
+const FLAG_BUS_ROUTE_IN    = true;  //{동네명 출발} 일때
+const FLAG_BUS_ROUTE_OUT   = false; //고현 출발 일때
+
+let  gFlag      //시간표 출력 상태 { true : 고현출발 , false : {동네명} 출발}
+    ,gRoute     //시간표 현재 옵션 { 시간표 키값 }
+    ,gPath      //동네명 현재 옵션 { 동네명 키값 }
+    ,bus_data   //import된 버스 시간표
+    ,busKeys;   //import된 경로 키값  ,동네명키값이다.
 
 
 $(document).ready(function () {
