@@ -244,14 +244,18 @@ function createHtml(){
             if(routeTime === '시간 미제공'){
                 routeTime = 'X';
             }
+            //첫번째 경로와 마지막 경로가 아닐때 화살표 표기
+            if (idx !== 0 && idx !== keys.length - 3) {
+                busRoute += `<span class='brown-text'><b> ⇣ </b></span>`
+            }
             if(keys[idx+1] === start || keys[idx+1] === end){
                 item = `<span class="routeName-select">${item}</span>`
             }
             else{
                 item = `<span class="routeName-none">${item}</span>`
             }
-            busRoute += `<span class='brown-text'>${idx !== 0 ? '<b> → </b>' : ''}</span>`
             busRoute += `${item}<span class="routeTime">(${routeTime})</span>`
+            busRoute +=`<br>`
         });
         let busInfoColorText = createBusInfoColorText(busInfo);
 
