@@ -244,10 +244,19 @@ function createHtml(){
             if(routeTime === '시간 미제공'){
                 routeTime = 'X';
             }
-            //첫번째 경로와 마지막 경로가 아닐때 화살표 표기
-            if (idx !== 0 && idx !== keys.length - 3) {
-                busRoute += `<span class='brown-text'><b> ⇣ </b></span>`
+            //모바일 화면 일때 경로 문자열 처리
+            if(matchMedia("screen and (max-width: 576px)").matches){
+                // console.log("mobile");
+                //첫번째 경로와 마지막 경로가 아닐때 화살표 표기
+                if (idx !== 0 && idx !== keys.length - 3) {
+                    busRoute += `<span class='brown-text'><b> ⇣ </b></span>`
+                }
             }
+            //테블릿 , PC 화면 일때 경로 문자열 처리
+            else if(matchMedia("screen and (min-width: 576px)").matches){
+                busRoute += `<span class='brown-text'>${idx !== 0 ? '<b> → </b>' : ''}</span>`
+            }
+
             if(keys[idx+1] === start || keys[idx+1] === end){
                 item = `<span class="routeName-select">${item}</span>`
             }
@@ -255,7 +264,12 @@ function createHtml(){
                 item = `<span class="routeName-none">${item}</span>`
             }
             busRoute += `${item}<span class="routeTime">(${routeTime})</span>`
-            busRoute +=`<br>`
+
+            //모바일 화면 일때 계행 문자 추가
+            if(matchMedia("screen and (max-width: 576px)").matches){
+                busRoute +=`<br>`
+            }
+
         });
         let busInfoColorText = createBusInfoColorText(busInfo);
 
@@ -444,3 +458,29 @@ function convertToTimeString(input) {
     // 최종 문자열 생성
     return `${meridiem} ${convertedHour.toString().padStart(2, "0")}:${minute.padStart(2, "0")}`;
 }
+
+/**
+ * 디바운스 함수
+ * @param func  handleResize를 인자로 받음
+ * @param delay 딜레이시간
+ * @returns {(function(): void)|*}
+ */
+function debounce(func, delay) {
+    let timer;
+    return function () {
+        clearTimeout(timer);
+        timer = setTimeout(func, delay);
+    };
+}
+
+/**
+ * 화면 조절 완료 후 실행 callback 함수
+ */
+function handleResize() {
+    location.reload();
+}
+
+const debouncedResize = debounce(handleResize, 300); // 300ms 딜레이 적용
+
+// 리사이즈 이벤트에 디바운스된 함수를 연결
+window.addEventListener("resize", debouncedResize);
