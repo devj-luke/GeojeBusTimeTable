@@ -26,7 +26,7 @@
 
 # 알림
 - 현재 시간표는 동부,남부 노선만 데이터가 추가 되어있습니다.
-- 현재 만들어진 시간표는 [Bus_Time(23.07.20.).xlsx](https://user-images.githubusercontent.com/102304046/257047536-f5f0d612-9635-4fb5-a67f-989c372f5ea4.png) 파일을 기준으로 만들었습니다.
+- 현재 만들어진 시간표는 [Bus_Time(23.08.16.).xlsx](https://user-images.githubusercontent.com/102304046/257047536-f5f0d612-9635-4fb5-a67f-989c372f5ea4.png) 파일을 기준으로 만들었습니다.
 
 
 # 연락
