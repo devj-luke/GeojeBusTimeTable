@@ -459,32 +459,17 @@ function convertToTimeString(input) {
     return `${meridiem} ${convertedHour.toString().padStart(2, "0")}:${minute.padStart(2, "0")}`;
 }
 
-/**
- * 디바운스 함수
- * @param func  handleResize를 인자로 받음
- * @param delay 딜레이시간
- * @returns {(function(): void)|*}
- */
-function debounce(func, delay) {
-    let timer;
-    return function () {
-        clearTimeout(timer);
-        timer = setTimeout(func, delay);
-    };
-}
-/**
- * 화면 조절 완료 후 실행 callback 함수
- */
-function handleResize() {
-    //스크롤 중인 경우 reload 하지않음
-    if(!isScrolling){
-        location.reload();
-    }
-}
-const debouncedResize = debounce(handleResize, 300); // 300ms 딜레이 적용
-
-
-window.addEventListener("resize", debouncedResize);
+// setTimeout() 메서드를 할당하는 전역 변수
+let resizing;
+// 반응형을 위해 resize 시 페이지 새로 고친다.
+window.addEventListener('resize', (e) => {
+    clearTimeout(resizing);
+    resizing = setTimeout(()=>{
+        if(!isScrolling){
+            location.reload();
+        }
+    },300);
+});
 
 // 스크롤 여부 확인
 let isScrolling = false;
