@@ -472,15 +472,34 @@ function debounce(func, delay) {
         timer = setTimeout(func, delay);
     };
 }
-
 /**
  * 화면 조절 완료 후 실행 callback 함수
  */
 function handleResize() {
-    location.reload();
+    //스크롤 중인 경우 reload 하지않음
+    if(!isScrolling){
+        location.reload();
+    }
 }
-
 const debouncedResize = debounce(handleResize, 300); // 300ms 딜레이 적용
 
-// 리사이즈 이벤트에 디바운스된 함수를 연결
+
 window.addEventListener("resize", debouncedResize);
+
+// 스크롤 여부 확인
+let isScrolling = false;
+// setTimeout() 메서드를 할당하는 전역 변수
+let scrolling;
+window.addEventListener('scroll', (e) => {
+    if (!scrolling) {
+        // start scrolling!
+        isScrolling = true;
+    }
+    // 일정시간(250ms) 뒤에 스크롤 동작 멈춤을 감지
+    clearTimeout(scrolling);
+    scrolling = setTimeout(() => {
+        // stop scrolling!
+        isScrolling = false;
+        scrolling = undefined;
+    }, 250);
+})
