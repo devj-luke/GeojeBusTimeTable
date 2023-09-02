@@ -126,20 +126,34 @@ footer{
 .brown-text{
     color: brown;
 }
-
+#bus-stop-button{
+    position: fixed;
+    bottom: 110px;
+    right: 60px;
+    cursor: pointer;
+    /* 아이콘 크기 및 스타일을 설정하세요 */
+    font-size: 30px;
+    /* 아이콘 색상을 원하는 색상으로 설정하세요 */
+    color: #007bff;
+}
 #refresh-button {
     position: fixed;
     bottom: 110px;
     right: 20px;
     cursor: pointer;
     /* 아이콘 크기 및 스타일을 설정하세요 */
-    font-size: 24px;
+    font-size: 30px;
     /* 아이콘 색상을 원하는 색상으로 설정하세요 */
     color: #007bff;
 }
+.fa-bus{
+    color: black;
+}
 .refresh-icon{
     color: black;
-    font-size: 30px;
+}
+.fa-bus:active{
+    color: gold;
 }
 .refresh-icon:active{
     color: gold;
