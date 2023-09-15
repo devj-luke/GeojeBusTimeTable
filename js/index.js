@@ -83,7 +83,7 @@ function loadTimeTable(){
     //데이터 로딩
     importTimeTable().then(() => {
         //기준 시간 출력
-        $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
+        $('.button-label').text(`시간표 조회 , 기준 시각 - ${convertToTimeString(getCurrentTime())}`);
         //html 생성
         createHtml();
         //항목 포커싱
