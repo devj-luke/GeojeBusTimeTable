@@ -17,7 +17,7 @@ function init(){
     checkLocalStorageRoute();
     importTimeTable()
         .then(() => {
-            $('.button-label').text(`시간표 조회 시각 - ${convertToTimeString(getCurrentTime())}`);
+            $('.button-label').text(`시간표 조회 , 기준 시각 - ${convertToTimeString(getCurrentTime())}`);
             //개체별 기본 값 세팅
             initComponent();
             //개체별 이벤트 등록
