@@ -450,13 +450,13 @@ function convertToTimeString(input) {
     }
 
     // 시간이 12 이상이면 PM, 아니면 AM으로 설정
-    const meridiem = hourInt >= 12 ? "PM" : "AM";
+    const meridiem = hourInt >= 12 ? "오후" : "오전";
 
     // 12시간 형식으로 변환
     const convertedHour = hourInt % 12 === 0 ? 12 : hourInt % 12;
 
     // 최종 문자열 생성
-    return `${meridiem} ${convertedHour.toString().padStart(2, "0")}:${minute.padStart(2, "0")}`;
+    return `${meridiem} ${convertedHour.toString().padStart(2, "0")}시 ${minute.padStart(2, "0")}분`;
 }
 
 // setTimeout() 메서드를 할당하는 전역 변수
