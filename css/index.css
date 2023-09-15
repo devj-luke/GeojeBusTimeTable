@@ -65,13 +65,6 @@ footer{
     background-color: #CAF1E7;
 }
 
-/* 토글 버튼 및 래퍼 div 스타일링 */
-.toggle-wrapper {
-    display: flex;
-    /*background-color:;*/
-    padding: 3px;
-}
-
 .toggle-btn {
     flex: 1;
     background-color: #333333;
