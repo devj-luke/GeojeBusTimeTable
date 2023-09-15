@@ -165,7 +165,7 @@ function initEventListener(){
     });
     //Refresh 버튼 이벤트 등록
     $('#refresh-button').on("click",function () {
-        $('.button-label').text(`현재 시간표는 ${convertToTimeString(getCurrentTime())} 기준입니다.`);
+        $('.button-label').text(`시간표 조회 , 기준 시각 - ${convertToTimeString(getCurrentTime())}`);
         focusTimeTable();
     })
 
