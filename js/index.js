@@ -17,7 +17,7 @@ function init(){
     checkLocalStorageRoute();
     importTimeTable()
         .then(() => {
-            $('.button-label').text(`시간표 조회 , 기준 시각 - ${convertToTimeString(getCurrentTime())}`);
+            $('.button-label').text(`현재 시간표 조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
             //개체별 기본 값 세팅
             initComponent();
             //개체별 이벤트 등록
@@ -83,7 +83,7 @@ function loadTimeTable(){
     //데이터 로딩
     importTimeTable().then(() => {
         //기준 시간 출력
-        $('.button-label').text(`시간표 조회 , 기준 시각 - ${convertToTimeString(getCurrentTime())}`);
+        $('.button-label').text(`현재 시간표 조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
         //html 생성
         createHtml();
         //항목 포커싱
@@ -165,7 +165,7 @@ function initEventListener(){
     });
     //Refresh 버튼 이벤트 등록
     $('#refresh-button').on("click",function () {
-        $('.button-label').text(`시간표 조회 , 기준 시각 - ${convertToTimeString(getCurrentTime())}`);
+        $('.button-label').text(`현재 시간표 조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
         focusTimeTable();
     })
 
