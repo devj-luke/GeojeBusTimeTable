@@ -26,21 +26,26 @@ footer{
     margin: 10px;
 }
 .title{
-    flex-basis: 65px;
+    flex-basis: 15%;
     border-bottom: 1px solid black;
     /*background-color: #f2f2f2;*/
     flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 .title-color{
     background-color: black;
     color: white;
 }
+.bg-gray{
+    background-color: #f2f2f2;
+}
+
 .title-etc{
     /*background-color: #f2f2f2;*/
-    flex-basis: 65px;
+    flex-basis: 55%;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
@@ -50,11 +55,19 @@ footer{
     color: red;
 }
 .value{
-    flex-basis: 100%;
-    border-left: 1px solid black;
+    flex-basis: 15%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.value-time{
-    background-color: #f2f2f2;
+.value-path{
+    flex-basis: 100%;
+}
+.value-etc{
+    flex-basis: 55%;
+    text-align: center;
+    border-left: 1px solid black;
 }
 .content-border-bottom{
     border-bottom: 1px solid #000000;
