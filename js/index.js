@@ -260,15 +260,9 @@ function createHtml(){
         let busInfoColorText = createBusInfoColorText(busInfo);
 
         if(busTime !=="X") {
-            $('.content').append(`    <div class="d-flex flex-column item">
-                                            <div class="item__number    d-flex">                                                
-                                                <div class="title title-color">시간</div>
-                                                <div class="title title-color">번호</div>
-                                                <div class="title title-color">종점</div>
-                                                <div class="title-etc title-color">비고</div>
-                                            </div>
+            $('.content').append(`    <div class="d-flex flex-column item">                                            
                                             <div class="item__number    d-flex content-border-bottom">
-                                                <div id="bus-time-value" class="value bg-white border-right border-dark">${busTime}</div>
+                                                <div id="bus-time-value" class="value bg-highlight border-right border-dark">${busTime}</div>
                                                 <div class="value bg-white border-right border-dark">${busNumber}</div>
                                                 <div class="value bg-white">${finalRoute}</div>
                                                 <div class="value-etc bg-white">${busInfoColorText}</div>
@@ -337,7 +331,7 @@ function focusTimeTable(){
         let value = parseInt($(item).text().replace(':',''));
         if(currentTimeInt <= value){
             const    parentItem = $(item).parent().parent()
-                    ,pos        = $(parentItem).offset().top - $('header').height() - 10;
+                    ,pos        = $(parentItem).offset().top - $('header').height() - 40;
             //해당 항목 active
             $(parentItem).addClass('item-focus');
 
