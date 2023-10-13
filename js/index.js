@@ -244,17 +244,8 @@ function createHtml(){
             if(routeTime === '시간 미제공'){
                 routeTime = 'X';
             }
-            //모바일 화면 일때 경로 문자열 처리
-            if(matchMedia("screen and (max-width: 576px)").matches){
-                // console.log("mobile");
-                //첫번째 경로와 마지막 경로가 아닐때 화살표 표기
-                if (idx !== 0 && idx !== keys.length - 3) {
-                    busRoute += `<span class='brown-text'><b> ⇣ </b></span>`
-                }
-            }
-            //테블릿 , PC 화면 일때 경로 문자열 처리
-            else if(matchMedia("screen and (min-width: 576px)").matches){
-                busRoute += `<span class='brown-text'>${idx !== 0 ? '<b> → </b>' : ''}</span>`
+            if (idx !== 0 && idx !== keys.length - 3) {
+                busRoute += `<span class='brown-text'><b> ⇣ </b></span>`
             }
 
             if(keys[idx+1] === start || keys[idx+1] === end){
@@ -264,12 +255,7 @@ function createHtml(){
                 item = `<span class="routeName-none">${item}</span>`
             }
             busRoute += `${item}<span class="routeTime">(${routeTime})</span>`
-
-            //모바일 화면 일때 계행 문자 추가
-            if(matchMedia("screen and (max-width: 576px)").matches){
-                busRoute +=`<br>`
-            }
-
+            busRoute +=`<br>`
         });
         let busInfoColorText = createBusInfoColorText(busInfo);
 
@@ -454,33 +440,3 @@ function convertToTimeString(input) {
     // 최종 문자열 생성
     return `${meridiem} ${convertedHour.toString().padStart(2, "0")}시 ${minute.padStart(2, "0")}분`;
 }
-
-// setTimeout() 메서드를 할당하는 전역 변수
-let resizing;
-// 반응형을 위해 resize 시 페이지 새로 고친다.
-window.addEventListener('resize', (e) => {
-    clearTimeout(resizing);
-    resizing = setTimeout(()=>{
-        if(!isScrolling){
-            location.reload();
-        }
-    },300);
-});
-
-// 스크롤 여부 확인
-let isScrolling = false;
-// setTimeout() 메서드를 할당하는 전역 변수
-let scrolling;
-window.addEventListener('scroll', (e) => {
-    if (!scrolling) {
-        // start scrolling!
-        isScrolling = true;
-    }
-    // 일정시간(250ms) 뒤에 스크롤 동작 멈춤을 감지
-    clearTimeout(scrolling);
-    scrolling = setTimeout(() => {
-        // stop scrolling!
-        isScrolling = false;
-        scrolling = undefined;
-    }, 250);
-})
