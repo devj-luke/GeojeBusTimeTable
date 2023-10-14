@@ -378,6 +378,15 @@ function focusTimeTable(){
     else{
         $('.refresh-icon').addClass('disabled')
     }
+
+    const isAlertVisible = $('.alert-msg').is(':visible');
+    if (isAlertVisible) {
+        // alert가 노출 상태인 경우
+        $('.content').css("margin-top",'0')
+    } else {
+        // alert가 숨겨져 있는 경우
+        $('.content').css("margin-top",'30px')
+    }
 }
 
 /**
