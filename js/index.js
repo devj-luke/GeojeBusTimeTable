@@ -17,7 +17,7 @@ function init(){
     checkLocalStorageRoute();
     importTimeTable()
         .then(() => {
-            $('.button-label').text(`현재 시간표 조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
+            setRefreshBtnText();
             //개체별 기본 값 세팅
             initComponent();
             //개체별 이벤트 등록
@@ -83,7 +83,7 @@ function loadTimeTable(){
     //데이터 로딩
     importTimeTable().then(() => {
         //기준 시간 출력
-        $('.button-label').text(`현재 시간표 조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
+        setRefreshBtnText();
         //html 생성
         createHtml();
         //항목 포커싱
@@ -165,7 +165,7 @@ function initEventListener(){
     });
     //Refresh 버튼 이벤트 등록
     $('#refresh-button').on("click",function () {
-        $('.button-label').text(`현재 시간표 조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
+        setRefreshBtnText();
         focusTimeTable();
     })
 
@@ -442,4 +442,11 @@ function convertToTimeString(input) {
 
     // 최종 문자열 생성
     return `${meridiem} ${convertedHour.toString().padStart(2, "0")}시 ${minute.padStart(2, "0")}분`;
+}
+
+/**
+ * 조회 예정 시간 출력 문자열 변경하는 함수
+ */
+function setRefreshBtnText(){
+    $('.button-label').text(`조회 기준 시각 : ${convertToTimeString(getCurrentTime())}`);
 }
