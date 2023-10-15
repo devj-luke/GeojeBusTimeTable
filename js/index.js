@@ -331,7 +331,7 @@ function focusTimeTable(){
         let value = parseInt($(item).text().replace(':',''));
         if(currentTimeInt <= value){
             const    parentItem = $(item).parent().parent()
-                    ,pos        = $(parentItem).offset().top - $('header').height() - 40;
+                    ,pos        = $(parentItem).offset().top - $('header').height() - 36;
             //해당 항목 active
             $(parentItem).addClass('item-focus');
 
