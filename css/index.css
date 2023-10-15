@@ -187,10 +187,11 @@ footer{
 }
 
 .routeTime{
-    font-size: 8px;
+    font-size: 0.8rem;
     color: black;
 }
 .routeName-select{
+    font-size: 1.1rem;
     color: green;
     font-weight: bold;
 }
