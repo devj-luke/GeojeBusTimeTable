@@ -165,7 +165,7 @@ footer{
 
 #refresh-button {
     position: fixed;
-    bottom: 165px;
+    bottom: 120px;
     right: 20px;
     cursor: pointer;
     /* 아이콘 크기 및 스타일을 설정하세요 */
