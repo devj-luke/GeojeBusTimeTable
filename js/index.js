@@ -235,27 +235,23 @@ function createHtml(){
                 ,finalRoute     = keys[keys.length-2];
 
         let busRoute ='';
-
         $.each(keys.slice(1,keys.length-1),function (idx,item){
             let      routeTime      = data[index][item].trim();
             const    toggleBtn      = $('.active').text().split('→')
-                    ,start          = toggleBtn[0].trim()
-                    ,end            = toggleBtn[1].trim();
+                ,start          = toggleBtn[0].trim()
+                ,end            = toggleBtn[1].trim();
+            busRoute+='<div class="d-flex flex-row border-bottom border-dark">';
             if(routeTime === '시간 미제공'){
-                routeTime = 'X';
+                routeTime = '시간 정보 없음';
             }
-            if (idx !== 0 && idx !== keys.length - 3) {
-                busRoute += `<span class='brown-text'><b> ⇣ </b></span>`
-            }
-
             if(keys[idx+1] === start || keys[idx+1] === end){
-                item = `<span class="routeName-select">${item}</span>`
+                busRoute+=`<div class="value-item-name routeName-select">${item}</div>`;
             }
             else{
-                item = `<span class="routeName-none">${item}</span>`
+                busRoute+=`<div class="value-item-name routeName-none">${item}</div>`;
             }
-            busRoute += `${item}<span class="routeTime">(${routeTime})</span>`
-            busRoute +=`<br>`
+            busRoute+=`<div class="value-item-time pl-2 border-left border-dark"> ${routeTime}</div>`;
+            busRoute+='</div>';
         });
         let busInfoColorText = createBusInfoColorText(busInfo);
 
@@ -268,8 +264,10 @@ function createHtml(){
                                                 <div class="value-etc bg-white">${busInfoColorText}</div>
                                             </div>                                            
                                             <div class="item__info      d-flex">
-                                                <div class="title bg-gray border-right border-dark">경로</div>
-                                                <div class="value-path content-border-bottom pl-2">${busRoute}</div>
+                                                <div class="title bg-gray border-right border-dark">시간표</div>
+                                                <div class="value-path-div">
+                                                        ${busRoute}
+                                                </div>                                                                                                
                                             </div>
                                         </div>`
             );

@@ -91,7 +91,27 @@ footer{
     justify-content: center;
     align-items: center;
 }
-.value-path{
+
+.value-item-icon{
+    color: #4e555b;
+    flex-basis: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: right;
+}
+.value-item-name{
+    flex-basis: 60px;
+    min-width: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.value-item-time{
+    color: #4e555b;
+}
+.value-path-div{
     flex-basis: 100%;
 }
 .value-etc{
@@ -189,6 +209,7 @@ footer{
 .routeTime{
     font-size: 0.8rem;
     color: black;
+    margin-left: 20px;
 }
 .routeName-select{
     font-size: 1.1rem;
@@ -196,7 +217,7 @@ footer{
     font-weight: bold;
 }
 .routeName-none{
-    color: #696969;
+    color: #424242;
 }
 
 @media (max-width: 576px) {
