@@ -3,7 +3,6 @@ const FLAG_BUS_ROUTE_IN    = true;  //{동네명 출발} 일때
 const FLAG_BUS_ROUTE_OUT   = false; //고현 출발 일때
 
 let  gFlag      //시간표 출력 상태 { true : 고현출발 , false : {동네명} 출발}
-    ,gRoute     //시간표 현재 옵션 { 시간표 키값 }
     ,gPath      //동네명 현재 옵션 { 동네명 키값 }
     ,bus_data   //import된 버스 시간표
     ,busKeys;   //import된 경로 키값  ,동네명키값이다.
@@ -40,13 +39,9 @@ function init(){
  * 페이지 로딩 시 로컬 스토리지 노선 정보가 있는지 확인한다.
  */
 function checkLocalStorageRoute(){
-    const    route = localStorage.getItem('gRoute')
-            ,flag   = localStorage.getItem('gFlag');
-    if(route !== null && flag !== null){
+    const    flag   = localStorage.getItem('gFlag');
+    if(flag !== null){
         gFlag   = JSON.parse(flag);
-        gRoute  = localStorage.getItem("gRoute");
-
-        $('#select-route-number').val(gRoute);
 
         let buttonElement;
         if(gFlag)   {   buttonElement = $('#btn-bus-in');   }
@@ -55,8 +50,6 @@ function checkLocalStorageRoute(){
         $('.toggle-btn').not(buttonElement).removeClass('active');
     }
     else{
-        gRoute = $('#select-route-number option:selected').val();
-        localStorage.setItem("gRoute",gRoute);
         localStorage.setItem("gFlag",JSON.stringify(FLAG_BUS_ROUTE_IN));
     }
 }
@@ -97,24 +90,8 @@ function loadTimeTable(){
  */
 async function importTimeTable() {
 
-    let obj;
+    let obj = await import('../data/50-data.js');
 
-    switch (gRoute){
-        case "50":
-        {
-            obj = await import('../data/50-data.js');
-            break;
-        }
-        case "70":
-        {
-            obj = await import('../data/70-data.js');
-            break;
-        }
-        default:
-        {
-            throw new Error("시간표를 가져오는 중에 오류가 발생했습니다.");
-        }
-    }
     if (gFlag)    {      bus_data = obj.bus_data_in;     }
     else          {      bus_data = obj.bus_data_out;    }
     busKeys     = obj.busKeys;
@@ -134,28 +111,6 @@ function initComponent(){
  * 화면에서 사용되는 리스너를 등록하는 코드 모음이다.
  */
 function initEventListener(){
-    //노선 select 이벤트 등록
-    $('#select-route-number').change(function (){
-        gRoute  = $('#select-route-number option:selected').val()
-        importTimeTable()
-            .then(()=>{
-                gPath   = busKeys[0];
-                localStorage.setItem("gRoute",gRoute);
-                localStorage.setItem("gPath",gPath);
-
-                //경로 select 변경
-                $('#select-route-number').val(gRoute);
-                //select item 초기화
-                const select = $('#select-start');
-                $(select).html('');
-                $.each(busKeys,function (index,item) {
-                    $('#select-start').append(`<option value="${item}">${item} </option>`);
-                });
-                $(select).val(gPath);
-
-                loadTimeTable();
-        });
-    });
     //select 이벤트 등록
     $('#select-start').change(function (){
         const path = $('#select-start option:selected').text().trim()
