@@ -199,30 +199,38 @@ function createHtml(){
             if(routeTime === '시간 미제공'){
                 routeTime = '시간 정보 없음';
             }
-            if(keys[idx+1] === start || keys[idx+1] === end){
-                busRoute+=`<div class="value-item-name routeName-select">${item}</div>`;
+            if(keys[idx+1] !== start && keys[idx+1] !== end){
+                busRoute+=`<div class="tbody-item-col1 tbody-color-col1 routeName-none">${item}</div>`;
+                busRoute+=`<div class="tbody-item-col2 routeName-none"> ${routeTime}</div>`;
+                busRoute+=`<div class="tbody-item-col3"></div>`;
             }
             else{
-                busRoute+=`<div class="value-item-name routeName-none">${item}</div>`;
+                busRoute+=`<div class="tbody-item-col1 tbody-color-col1 routeName-select">${item}</div>`;
+                busRoute+=`<div class="tbody-item-col2 value-item-time routeName-select"> ${routeTime}</div>`;
+                busRoute+=`<div class="tbody-item-col3 value-item-time routeName-select"></div>`;
             }
-            busRoute+=`<div class="value-item-time pl-2 border-left border-dark"> ${routeTime}</div>`;
+
             busRoute+='</div>';
         });
         let busInfoColorText = createBusInfoColorText(busInfo);
 
         if(busTime !=="X") {
-            $('.content').append(`    <div class="d-flex flex-column item">                                            
-                                            <div class="item__number    d-flex content-border-bottom">
-                                                <div id="bus-time-value" class="value bg-highlight border-right border-dark">${busTime}</div>
-                                                <div class="value bg-white border-right border-dark">${busNumber}</div>
-                                                <div class="value bg-white">${finalRoute}</div>
-                                                <div class="value-etc bg-white">${busInfoColorText}</div>
+            $('.content').append(`    <div class="d-flex flex-column item">                                       
+                                            <div class="d-flex content-border-bottom">
+                                                <div class="thead-item-col1 thead-color-col1 text-white" id="bus-time-value" >${busTime}</div>
+                                                <div class="thead-item-col2 thead-color-col2 text-white">${busNumber}번</div>
+                                                <div class="thead-item-col3 thead-color-col3 text-white">${finalRoute}</div>
                                             </div>                                            
-                                            <div class="item__info      d-flex">
-                                                <div class="title bg-gray border-right border-dark">시간표</div>
+                                            <div class="d-flex">
                                                 <div class="value-path-div">
                                                         ${busRoute}
                                                 </div>                                                                                                
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="tbody-item-col1 tbody-color-etc">비고</div>
+                                                <div class="tbody-item-col2 bg-ghost-white">${busInfoColorText}</div>
+                                                
+                                                <div class="tbody-item-col3 bg-ghost-white"></div>
                                             </div>
                                         </div>`
             );
@@ -279,12 +287,11 @@ function focusTimeTable(){
     });
 
     let isBusTime = false;
-
     $.each(cntTimeValue,function (index,item) {
         let value = parseInt($(item).text().replace(':',''));
         if(currentTimeInt <= value){
             const    parentItem = $(item).parent().parent()
-                    ,pos        = $(parentItem).offset().top - $('header').height() - 36;
+                    ,pos        = $(parentItem).offset().top - $('header').height() - 50;
             //해당 항목 active
             $(parentItem).addClass('item-focus');
 

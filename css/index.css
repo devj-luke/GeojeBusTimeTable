@@ -47,7 +47,7 @@ footer{
     width: 100%;
 }
 .col-desc-title{
-    flex-basis: 15%;
+    flex-basis: 20%;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
@@ -57,25 +57,32 @@ footer{
     border-left: 1px solid black;
     border-bottom: 1px solid black;
 }
-.title-color{
-    background-color: #E9E4DE;
-}
+
+
 .bg-gray{
     background-color: #f2f2f2;
 }
 .content{
     margin-top: 30px;
 }
-.bg-highlight{
-    background-color: #E9E4DE;
-}
-
-.title-etc{
-    /*background-color: #f2f2f2;*/
-    flex-basis: 55%;
+.title-route-number{
+    flex-basis: 20%;
     flex-shrink: 0;
     display: flex;
-    justify-content: center;
+    justify-content: left;
+    align-items: center;
+    padding-left: 10px;
+    height: 40px;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.title-etc{
+    /*background-color: #f2f2f2;*/
+    flex-basis: 60%;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: left;
+    padding-left: 10px;
     align-items: center;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
@@ -85,11 +92,56 @@ footer{
     color: red;
 }
 .value{
-    flex-basis: 15%;
+    flex-basis: 20%;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.thead-item-col1{
+    flex-basis: 20%;
+    background-color: #ede0d4;
+    border-right: 1px solid black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.thead-item-col2{
+    flex-basis: 20%;
+    background-color: #E9E4DE;
+    border-right: 1px solid black;
+    padding-left: 10px;
+}
+.thead-item-col3{
+    flex-basis: 60%;
+    text-align: left;
+    background-color: #E9E4DE;
+    padding-left: 10px;
+}
+.tbody-item-col1{
+    flex-basis: 20%;
+    border-right: 1px solid black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tbody-item-col1-etc{
+    flex-basis: 20%;
+    border-right: 1px solid black;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tbody-item-col2{
+    flex-basis: 79%;
+    text-align: left;
+    padding-left: 10px;
+}
+.tbody-item-col3{
+    flex-basis: 1%;
 }
 
 .value-item-icon{
@@ -100,47 +152,44 @@ footer{
     align-items: center;
     text-align: right;
 }
-.value-item-name{
-    flex-basis: 60px;
-    min-width: 100px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 .value-item-time{
     color: #4e555b;
 }
 .value-path-div{
     flex-basis: 100%;
 }
-.value-etc{
-    flex-basis: 55%;
-    text-align: center;
-    border-left: 1px solid black;
+
+.value-etc-time{
+    flex-basis: 80%;
+    text-align: left;
+    /*border-left: 1px solid black;*/
 }
 .content-border-bottom{
     border-bottom: 1px solid #000000;
 }
 
+.select-label{
+    background-color: #006CA9;
+    color: white;
+    margin-right: 2px;
+}
 /* 버스 탑승 가능 시 색상*/
 .item-focus{
-    background-color: #CAF1E7;
+    border: 2px dashed red;
 }
 
 .toggle-btn {
     flex: 1;
-    background-color: #333333;
+    background-color: #0068A2;
     /*color: gray;*/
-    color: white;
     cursor: pointer;
     border: 2px solid white;
 }
 
 /* 활성화된 버튼 스타일 */
 .toggle-btn.active {
-    background-color: gold;
-    color: black;
+    background-color: #0086A8;
 }
 /*refreshBtn CSS 처리*/
 .button-refresh{
@@ -194,11 +243,11 @@ footer{
     color: #007bff;
 }
 .refresh-icon{
-    color: black;
     font-size: 30px;
+    color: #006CA9;
 }
 .refresh-icon:active{
-    color: gold;
+    color: #0086A8;
 }
 
 .header-info{
@@ -212,12 +261,13 @@ footer{
     margin-left: 20px;
 }
 .routeName-select{
-    font-size: 1.1rem;
-    color: green;
-    font-weight: bold;
+    /*font-size: 0.9rem;*/
+    /*font-weight: bold;*/
+    color: #000000;
 }
+
 .routeName-none{
-    color: #424242;
+    color: #5e5e5e;
 }
 
 @media (max-width: 576px) {
@@ -235,4 +285,26 @@ footer{
     .div-path{
         flex-basis:50%;
     }
+}
+
+
+/*color*/
+.bg-ghost-white{
+    background-color: #ffffff;
+}
+.thead-color-col1{
+    background-color: #006CA9;
+}
+
+.thead-color-col2{
+    background-color: #749AC2;
+}
+.thead-color-col3{
+    background-color: #749AC2;
+}
+.tbody-color-col1{
+    background-color: #ffffff;
+}
+.tbody-color-etc{
+    background-color: #F2F2F2;
 }
