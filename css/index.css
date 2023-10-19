@@ -185,11 +185,13 @@ footer{
     /*color: gray;*/
     cursor: pointer;
     border: 2px solid white;
+    color: white;
 }
 
 /* 활성화된 버튼 스타일 */
 .toggle-btn.active {
-    background-color: #0086A8;
+    background-color: gold;
+    color: black;
 }
 /*refreshBtn CSS 처리*/
 .button-refresh{
