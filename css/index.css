@@ -262,8 +262,9 @@ footer{
 }
 .routeName-select{
     /*font-size: 0.9rem;*/
-    /*font-weight: bold;*/
-    color: #000000;
+    font-weight: bold;
+    color: green;
+
 }
 
 .routeName-none{
