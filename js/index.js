@@ -217,8 +217,8 @@ function createHtml(){
         if(busTime !=="X") {
             $('.content').append(`    <div class="d-flex flex-column item">                                       
                                             <div class="d-flex content-border-bottom">
-                                                <div class="thead-item-col1 thead-color-col1 text-white" id="bus-time-value" >${busNumber}번</div>
-                                                <div class="thead-item-col2 thead-color-col2 text-white">${busTime}</div>
+                                                <div class="thead-item-col1 thead-color-col1 text-white" id="bus-time-value">${busTime}</div>
+                                                <div class="thead-item-col2 thead-color-col3 text-white">${busNumber}번</div>
                                                 <div class="thead-item-col3 thead-color-col3 text-white">${finalRoute}</div>
                                             </div>                                            
                                             <div class="d-flex">
