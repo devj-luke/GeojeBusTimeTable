@@ -264,6 +264,9 @@ function focusTimeTable(){
     //생성된 HTML 미존재
     if(busTime.length === 0 ){
         $('.alert-path').show();
+        $('html, body').animate({
+            scrollTop: 0
+        }, 1);
         return 0;
     }
     //생성된 HTML 존재 시
