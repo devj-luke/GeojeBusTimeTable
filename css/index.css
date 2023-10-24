@@ -193,34 +193,11 @@ footer{
     background-color: gold;
     color: black;
 }
-/*refreshBtn CSS 처리*/
-.button-refresh{
-    background-color: gold;
-    width: 100%;
-    /*font-size: 0.8rem;*/
-}
-.button-refresh:active{
-    background-color: #818182;
-}
+
 .button-label{
     font-weight: bold;
     text-align: center;
     font-size: 0.9rem;
-}
-/* 비활성 버튼에 대한 스타일링 */
-.refresh-icon.disabled,
-.refresh-icon:disabled {
-    pointer-events: none; /* 클릭 및 이벤트 무시 */
-    opacity: 0.65; /* 투명도를 조정하여 비활성 상태 시 시각적으로 구분 */
-    /*background-color: silver;*/
-    color: transparent;
-}
-
-/* .disabled 클래스가 적용된 버튼에 대한 active 효과 제거 */
-.refresh-icon.disabled.active,
-.refresh-icon:disabled.active {
-    box-shadow: none; /* active 시 그림자 효과 제거 */
-    /* 다른 active 스타일을 제거하고 싶은 경우 추가 스타일링을 여기에 기술할 수 있습니다. */
 }
 
 /*비고 글자 색*/
@@ -233,25 +210,6 @@ footer{
 .brown-text{
     color: brown;
 }
-
-#refresh-button {
-    position: fixed;
-    bottom: 120px;
-    right: 20px;
-    cursor: pointer;
-    /* 아이콘 크기 및 스타일을 설정하세요 */
-    font-size: 24px;
-    /* 아이콘 색상을 원하는 색상으로 설정하세요 */
-    color: #007bff;
-}
-.refresh-icon{
-    font-size: 30px;
-    color: #006CA9;
-}
-.refresh-icon:active{
-    color: #0086A8;
-}
-
 .header-info{
     border: 1px solid #000000;
     color: white;
@@ -273,6 +231,28 @@ footer{
     color: #5e5e5e;
 }
 
+/* 탑승 가능 시간 확인 버튼*/
+.btn-chk{
+    font-size: 0.9rem;
+    background-color: #cadff5;
+    color: black;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    margin-left: 5px;
+    border-radius: 10px;
+    border: none; /* 테두리를 없애는 CSS 속성 */
+}
+.btn-chk:active{
+    background-color: gold;
+}
+.btn-chk:disabled{
+    background-color: #C1C1C1;
+    color: white;
+}
+.fa-check-square{
+    color: palevioletred;
+}
+/**/
 @media (max-width: 576px) {
     .div-route{
         flex-basis: 60%;

@@ -119,7 +119,7 @@ function initEventListener(){
         loadTimeTable();
     });
     //Refresh 버튼 이벤트 등록
-    $('#refresh-button').on("click",function () {
+    $('#btn-chk').on("click",function () {
         setRefreshBtnText();
         focusTimeTable();
     })
@@ -263,6 +263,7 @@ function focusTimeTable(){
 
     //생성된 HTML 미존재
     if(busTime.length === 0 ){
+        $("#btn-chk").prop("disabled", true);
         $('.alert-path').show();
         $('html, body').animate({
             scrollTop: 0
@@ -277,11 +278,16 @@ function focusTimeTable(){
     });
     if(cntNoTimeValue.length === busTime.length){
         $('.alert-info').show();
+        $("#btn-chk").prop("disabled", true);
         //최상단으로 포커스 이동 시킴
         $('html, body').animate({
             scrollTop: 0
         }, 500);
         return 0;
+    }
+    else{
+        // 탑승 가능 시간 존재 시 , 현재 탑승 가능 시간 확인 버튼 활성화
+        $("#btn-chk").prop("disabled", false);
     }
 
     //시간 값 존재 시
@@ -327,21 +333,6 @@ function focusTimeTable(){
             scrollTop: 0
         }, 500);
     }
-
-    /**
-     * 중복 클릭 방지 로직
-     * Focus 이동할 필요가 있을때만 조회버튼 비활성화 시킨다.
-     */
-    if(isBusTime){
-        $('.refresh-icon').addClass('disabled')
-        setTimeout(function () {
-            $('.refresh-icon').removeClass('disabled');
-        },1000)
-    }
-    else{
-        $('.refresh-icon').addClass('disabled')
-    }
-
     const isAlertVisible = $('.alert-msg').is(':visible');
     if (isAlertVisible) {
         // alert가 노출 상태인 경우
