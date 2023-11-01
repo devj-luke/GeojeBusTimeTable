@@ -180,11 +180,10 @@ footer{
 
 .toggle-btn {
     flex: 1;
-    background-color: #0068A2;
     /*color: gray;*/
     cursor: pointer;
     border: 2px solid white;
-    color: white;
+    color: black;
 }
 
 /* 활성화된 버튼 스타일 */
@@ -274,16 +273,23 @@ footer{
 .bg-ghost-white{
     background-color: #ffffff;
 }
+.thead-color-col1-top{
+    background-color: #585C6E;
+}
+.thead-color-col2-top{
+    background-color: #BCC0CF;
+}
+
 .thead-color-col1{
     background-color: #006CA9;
 }
-
 .thead-color-col2{
     background-color: #749AC2;
 }
 .thead-color-col3{
-    background-color: #3482B5;
+    background-color: #709cc4;
 }
+
 .tbody-color-col1{
     background-color: #ffffff;
 }
