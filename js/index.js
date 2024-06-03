@@ -344,7 +344,7 @@ function focusTimeTable(){
 }
 
 /**
- * 미경유,경유에 대해 색상 하이라이트를 위한 텍스트를 만들어주는 함수
+ * 미경유,경유,진입불가에 대해 색상 하이라이트를 위한 텍스트를 만들어주는 함수
  * @param text          하이라이트할 문자열
  * @returns {string}    하이라이트 처리된 문자열
  */
@@ -355,7 +355,8 @@ function createBusInfoColorText(text){
     $.each(busInfoArray, function(index, item) {
         let textColor = '';
         if (    item.includes('미경유')
-            ||  item.includes('운행중지')) {
+            ||  item.includes('운행중지')
+            || item.includes('진입불가')) {
             textColor = 'red-text';
         } else if (     item.includes('경유')
                     ||  item.includes('운행') ) {
