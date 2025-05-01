@@ -16,7 +16,7 @@
 
 # 알림
 - 현재 시간표는 동부,남부 노선만 데이터가 추가 되어있습니다.
-- 현재 만들어진 시간표는 [Bus_Time(25.03.24.)v1](https://gist.github.com/user-attachments/assets/a6530e41-f8b5-49bb-8369-a5d758a93590) 파일을 기준으로 만들었습니다.
+- 현재 만들어진 시간표는 [Bus_Time(25.04.21.)v1](https://gist.github.com/user-attachments/assets/e30a7384-63fa-44b6-8867-598f880ef791) 파일을 기준으로 만들었습니다.
 - 거제 정보시스템에 새로운 시간표가 올라올 때마다 업데이트할 예정입니다. :)
 
 # 연락
